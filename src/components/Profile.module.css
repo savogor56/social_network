@@ -1,0 +1,12 @@
+.main {
+  grid-area: main;
+  background-color: burlywood ;
+}
+
+.user_info { 
+display: flex;
+}
+
+.item {
+  color: red;
+}

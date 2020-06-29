@@ -1,0 +1,8 @@
+.aside {
+  grid-area: aside;
+  background-color: goldenrod;
+}
+
+.item {
+  color: aqua;
+}
