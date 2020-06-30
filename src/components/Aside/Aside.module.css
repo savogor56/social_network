@@ -1,0 +1,17 @@
+.aside {
+  grid-area: aside;
+  /* background-color: goldenrod; */
+}
+
+.item {
+  margin: 10px;
+}
+
+.item:hover {
+  background: #d1d1d1;
+  border: 2px solid #e1e1e1;
+}
+
+.item.active {
+  color: blue;
+}
