@@ -7,11 +7,15 @@
   margin: 10px;
 }
 
-.item:hover {
-  background: #d1d1d1;
-  border: 2px solid #e1e1e1;
+.item a{
+  color: blueviolet;
+  text-decoration: none;
 }
 
-.item.active {
-  color: blue;
+.item a:hover {
+  color: #5f2d8d;
+}
+
+.item a.active {
+  color: red;
 }

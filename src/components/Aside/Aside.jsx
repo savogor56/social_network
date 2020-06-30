@@ -1,14 +1,26 @@
 import React from 'react';
 import classes from './Aside.module.css';
+import { NavLink } from 'react-router-dom';
 
 export const Aside = () => {
   console.log(classes);
   return (
     <aside className={`${classes.aside} wrap`}>
-      <div className={`${classes.item} wrap`}><a href >Profile</a></div>
-      <div className={`${classes.item} wrap`}><a href>Messages</a></div>
-      <div className={`${classes.item} wrap`}><a href>News</a></div>
-      <div className={`${classes.item} wrap`}><a href>Music</a></div>
+      <div className={`${classes.item} `}>
+        <NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink>        
+      </div>
+      <div className={`${classes.item} `}>
+        <NavLink to="/dialogs" activeClassName={classes.active}>Dialogs</NavLink>        
+      </div>
+      <div className={`${classes.item} `}>
+        <NavLink to="/news" activeClassName={classes.active}>News</NavLink>        
+      </div>
+      <div className={`${classes.item} `}>
+        <NavLink to="/music" activeClassName={classes.active}>Music</NavLink>        
+      </div>
+      <div className={`${classes.item} `}>
+        <NavLink to="/settings" activeClassName={classes.active}>Settings</NavLink>        
+      </div>
     </aside>
   ) 
 };  

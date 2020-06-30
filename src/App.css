@@ -18,5 +18,11 @@
   margin: 5px;
 }
 
+.main {
+  grid-area: main;
+  /* background-color: burlywood ; */
+}
+
+
 
 

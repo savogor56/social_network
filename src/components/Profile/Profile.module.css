@@ -1,9 +1,10 @@
-.main {
-  grid-area: main;
-  background-color: burlywood ;
-}
-
 .user_info { 
 display: flex;
+flex-direction: column;
+}
+
+.avatar img{
+  width: 200px;
+  height: 128px;
 }
 

@@ -14,11 +14,10 @@ let users = {
 
 const Posts = () => {
   return(
-    <div className={`${classes.posts} wrap`}>
+    <div className={`${classes.posts}`}>
       <FormAddsPost />
-      <Post message="message хуеседж" avatar={users.user2.avatar}/>    
-      <Post message="не хуеседж" avatar={users.user1.avatar}/>    
-      <Post message="не хуеседж" avatar={users.user1.avatar}/>    
+      <Post message="message 123" avatar={users.user2.avatar}/>    
+      <Post message="message 321" avatar={users.user1.avatar}/> 
     </div>   
   )
 }
