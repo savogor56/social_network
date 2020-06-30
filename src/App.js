@@ -6,7 +6,7 @@ import Profile from './components/Profile';
 
 const App = () => {
   return (
-    <div className="app-wrapper">      
+    <div className="app_wrapper">      
       <Header />
       <Aside />
       <Profile />
