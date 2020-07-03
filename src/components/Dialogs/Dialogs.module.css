@@ -5,6 +5,8 @@
 
 .dialog_list {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .dialog {
@@ -21,4 +23,9 @@
 
 .message {
 
+}
+
+.active {
+  text-decoration: none;
+  color: black;
 }

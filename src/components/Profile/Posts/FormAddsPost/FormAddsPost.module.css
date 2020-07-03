@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form textarea {
+  width: 50%;
+}
+
+.form button {
+  margin: 5px;
+  padding: 5px;
+  width: 10%;
+}

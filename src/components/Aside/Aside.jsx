@@ -3,7 +3,6 @@ import classes from './Aside.module.css';
 import { NavLink } from 'react-router-dom';
 
 export const Aside = () => {
-  console.log(classes);
   return (
     <aside className={`${classes.aside} wrap`}>
       <div className={`${classes.item} `}>

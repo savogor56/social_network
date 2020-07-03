@@ -3,8 +3,8 @@ import classes from './FormAddsPost.module.css'
 
 const FormAddsPost = () => {
   return(
-    <div className={`${classes.flex} wrap`}>
-      <textarea></textarea>
+    <div className={`${classes.form} wrap`}>
+      <textarea placeholder="Введите текст вашего сообщения"></textarea>
       <button>Отправить</button>
     </div>
   )
