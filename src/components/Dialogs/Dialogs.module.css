@@ -9,13 +9,9 @@
   flex-direction: column;
 }
 
-.dialog {
 
-}
 
-.dialog.active {
-  color: red;
-}
+
 
 .chat {
   padding: 10px;
@@ -26,6 +22,5 @@
 }
 
 .active {
-  text-decoration: none;
-  color: black;
+  
 }
