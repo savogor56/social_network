@@ -1,5 +1,6 @@
-.dialog {
-
+.dialog a{
+color: blue;
+text-decoration: none;
 }
 
 .dialog.active {

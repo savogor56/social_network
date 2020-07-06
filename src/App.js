@@ -14,8 +14,8 @@ const App = (props) => {
       <div className="app_wrapper">      
         <Header />  
         <Aside />
-        <Route path="/profile" render={() => <Profile users={props.users} postsData={props.postsData} /> }/>
-        <Route exact path="/dialogs" render={()=> <Dialogs messagesData={props.messagesData} dialogsData={props.dialogsData} />} />
+        <Route path="/profile" render={() => <Profile state={props.appState.profilePage}  /> }/>
+        <Route exact path="/dialogs" render={()=> <Dialogs state={props.appState.dialogsPage}  />} />
       </div>
     </BrowserRouter>
   );

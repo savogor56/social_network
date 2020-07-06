@@ -5,11 +5,11 @@ import UserInfo from './UserInfo/UserInfo';
 
 
 const Profile = (props) => {
-  const userVasya = props.users.user1;
+  const userVasya = props.state.users.user1;
   return(
     <main className={`main wrap`}>
       <UserInfo image={userVasya.avatar} name={userVasya.name} email={userVasya.email} description={userVasya.description} />
-      <Posts postsData={props.postsData} />
+      <Posts postsData={props.state.postsData} />
     </main>
   )
 }

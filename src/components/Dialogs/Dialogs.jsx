@@ -9,7 +9,7 @@ const Dialogs = (props) => {
   return(
     <main className={`main wrap ${classes.dialogs}`}>
       <div className={`${classes.dialog_list} wrap`}>
-      {props.dialogsData.map((dialog) => {
+      {props.state.dialogsData.map((dialog) => {
         return(
         <DialogItem 
           id={dialog.id} 
@@ -19,10 +19,10 @@ const Dialogs = (props) => {
       })}    
       </div>
       <div className={`${classes.chat} wrap`}>
-        {props.messagesData.map((item) => {
+        {props.state.messagesData.map((message) => {
           return(
             <Message 
-              text={item.message}
+              text={message.text}
             />
           )
         })}
