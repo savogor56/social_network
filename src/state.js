@@ -1,3 +1,5 @@
+import { renderEntireTree } from "./render"
+
 let users = {
   user1: {
     id: 1,
@@ -116,6 +118,7 @@ export let addPost = (postMessage) => {
     avatar: users.user1.avatar
   };
   postsData.push(newPost);
+  renderEntireTree(state, addPost)
 }
 
 export default state;

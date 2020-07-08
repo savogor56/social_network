@@ -8,6 +8,7 @@ const FormAddsPost = (props) => {
       let text = newPostElement.current.value;
       console.log(text);
       props.addPost(text);
+      newPostElement.current.value = '';
   }
 
   
