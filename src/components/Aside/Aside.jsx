@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { Friends } from './Friends/Friends';
 
 export const Aside = (props) => {
-  console.log(props);
   return (
     <aside className={`${classes.aside} wrap`}>
       <div className={`${classes.item} `}>

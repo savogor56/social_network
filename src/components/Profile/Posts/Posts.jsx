@@ -6,7 +6,7 @@ import Post from './Post/Post';
 const Posts = (props) => {
   return(
     <div className={classes.posts}>
-      <FormAddsPost addPost={props.addPost} />
+      <FormAddsPost addPost={props.addPost} newPostText={props.newPostText} changePost={props.changePost} />
       {props.postsData.map((post) => {
         return(
           <Post

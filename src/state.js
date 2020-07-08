@@ -83,7 +83,8 @@ let postsData = [
 const state = {
   profilePage: {
     users: users,
-    postsData: postsData
+    postsData: postsData,
+    newPostText: "Введите текст"
   },
   dialogsPage: {
     dialogsData: dialogsData,
@@ -118,7 +119,12 @@ export let addPost = (postMessage) => {
     avatar: users.user1.avatar
   };
   postsData.push(newPost);
-  renderEntireTree(state, addPost)
+  renderEntireTree(state, addPost, changePost)
+}
+
+export let changePost = postMessage => {
+  state.profilePage.newPostText = postMessage;
+  renderEntireTree(state, addPost, changePost)
 }
 
 export default state;
