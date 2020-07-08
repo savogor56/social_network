@@ -13,8 +13,8 @@ const App = (props) => {
     <BrowserRouter>    
       <div className="app_wrapper">      
         <Header />  
-        <Aside />
-        <Route path="/profile" render={() => <Profile state={props.appState.profilePage}  /> }/>
+        <Aside state={props.appState.aside} />
+        <Route path="/profile" render={() => <Profile state={props.appState.profilePage} addPost={props.addPost} /> }/>
         <Route exact path="/dialogs" render={()=> <Dialogs state={props.appState.dialogsPage}  />} />
       </div>
     </BrowserRouter>

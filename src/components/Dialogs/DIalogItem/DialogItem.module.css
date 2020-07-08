@@ -1,6 +1,16 @@
+.dialog {
+  display: flex;
+}
+
 .dialog a{
 color: blue;
+margin-left: 5px;
 text-decoration: none;
+}
+
+.dialog img{
+width: 32px;
+height: 32px;
 }
 
 .dialog.active {

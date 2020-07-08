@@ -1,0 +1,33 @@
+.friends_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.friends_wrapper p{
+  /* margin: 0; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.friend {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+}
+
+.friend p{
+  margin: 0px;
+}
+
+.friends {
+  display: flex;
+  flex-direction: row;
+}
+
+.friend img{
+  align-self: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}

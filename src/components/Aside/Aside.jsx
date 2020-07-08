@@ -1,8 +1,10 @@
 import React from 'react';
 import classes from './Aside.module.css';
 import { NavLink } from 'react-router-dom';
+import { Friends } from './Friends/Friends';
 
-export const Aside = () => {
+export const Aside = (props) => {
+  console.log(props);
   return (
     <aside className={`${classes.aside} wrap`}>
       <div className={`${classes.item} `}>
@@ -20,6 +22,7 @@ export const Aside = () => {
       <div className={`${classes.item} `}>
         <NavLink to="/settings" activeClassName={classes.active}>Settings</NavLink>        
       </div>
+      <Friends friends={props.state.friends} />
     </aside>
   ) 
 };  

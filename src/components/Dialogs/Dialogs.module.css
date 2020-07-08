@@ -1,26 +1,25 @@
 .dialogs {
+  padding: 10px;
   display: grid;
   grid-template-columns: 2fr 10fr;
+  grid-template-rows: 1fr 60px;
+  grid-template-areas: 
+  "dialogs chat"
+  "dialogs form_add";
 }
 
 .dialog_list {
   padding: 10px;
   display: flex;
   flex-direction: column;
+  grid-area: dialogs;
 }
-
-
-
-
 
 .chat {
   padding: 10px;
+  grid-area: chat;
 }
 
-.message {
-
-}
-
-.active {
-  
+.form_add {
+  grid-area: form_add;
 }

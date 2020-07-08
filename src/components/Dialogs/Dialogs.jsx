@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import Message from './Message/Message';
 import DialogItem from './DIalogItem/DialogItem';
+import { FormAddMessage } from './FormAddMessage/FormAddMessage';
 
 
 const Dialogs = (props) => {
@@ -13,7 +14,9 @@ const Dialogs = (props) => {
         return(
         <DialogItem 
           id={dialog.id} 
+          key={dialog.id} 
           name={dialog.name}
+          avatar={dialog.avatar}
         />
         )
       })}    
@@ -22,11 +25,17 @@ const Dialogs = (props) => {
         {props.state.messagesData.map((message) => {
           return(
             <Message 
+              id={message.id}
+              key={message.id}
               text={message.text}
             />
           )
-        })}
+        })}        
       </div>
+      <div className="form_add">
+        <FormAddMessage />
+      </div>
+      
     </main>
   )
 }

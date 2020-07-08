@@ -6,10 +6,11 @@ import Post from './Post/Post';
 const Posts = (props) => {
   return(
     <div className={classes.posts}>
-      <FormAddsPost />
+      <FormAddsPost addPost={props.addPost} />
       {props.postsData.map((post) => {
         return(
-          <Post 
+          <Post
+            key={post.id}
             message={post.message} 
             avatar={post.avatar}
             likesCount={post.likesCount0}

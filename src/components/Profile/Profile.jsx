@@ -9,7 +9,7 @@ const Profile = (props) => {
   return(
     <main className={`main wrap`}>
       <UserInfo image={userVasya.avatar} name={userVasya.name} email={userVasya.email} description={userVasya.description} />
-      <Posts postsData={props.state.postsData} />
+      <Posts postsData={props.state.postsData} addPost={props.addPost} />
     </main>
   )
 }
