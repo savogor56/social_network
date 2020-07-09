@@ -1,4 +1,8 @@
-import { renderEntireTree } from "./render"
+
+
+// let renderEntireTree = () => {
+//   console.log('state changed');
+// }
 
 let users = {
   user1: {
@@ -77,54 +81,107 @@ let postsData = [
     likesCount: 1,
     avatar: users.user1.avatar
   }
-
 ]
 
-const state = {
-  profilePage: {
-    users: users,
-    postsData: postsData,
-    newPostText: "Введите текст"
+// const state = {
+//   profilePage: {
+//     users: users,
+//     postsData: postsData,
+//     newPostText: "Введите текст"
+//   },
+//   dialogsPage: {
+//     dialogsData: dialogsData,
+//     messagesData: messagesData
+//   },
+//   aside: {
+//     friends: [
+//       {
+//         id: users.user2.id,
+//         name: users.user2.name,
+//         avatar: users.user2.avatar
+//       },
+//       {
+//         id: users.user3.id,
+//         name: users.user3.name,
+//         avatar: users.user3.avatar
+//       },
+//       {
+//         id: users.user4.id,
+//         name: users.user4.name,
+//         avatar: users.user4.avatar
+//       }
+//     ]
+//   }
+// }
+
+// export let addPost = () => {
+  
+// }
+
+// export let changePost = postMessage => {
+//   state.profilePage.newPostText = postMessage;
+//   renderEntireTree()
+// }
+
+// export let subcribe = observer => {
+//   renderEntireTree = observer;
+// }
+
+let store = {
+  _state: {
+    profilePage: {
+      users: users,
+      postsData: postsData,
+      newPostText: "Введите текст"
+    },
+    dialogsPage: {
+      dialogsData: dialogsData,
+      messagesData: messagesData
+    },
+    aside: {
+      friends: [
+        {
+          id: users.user2.id,
+          name: users.user2.name,
+          avatar: users.user2.avatar
+        },
+        {
+          id: users.user3.id,
+          name: users.user3.name,
+          avatar: users.user3.avatar
+        },
+        {
+          id: users.user4.id,
+          name: users.user4.name,
+          avatar: users.user4.avatar
+        }
+      ]
+    }
   },
-  dialogsPage: {
-    dialogsData: dialogsData,
-    messagesData: messagesData
+  getState() {    
+    return this._state;
   },
-  aside: {
-    friends: [
-      {
-        id: users.user2.id,
-        name: users.user2.name,
-        avatar: users.user2.avatar
-      },
-      {
-        id: users.user3.id,
-        name: users.user3.name,
-        avatar: users.user3.avatar
-      },
-      {
-        id: users.user4.id,
-        name: users.user4.name,
-        avatar: users.user4.avatar
-      }
-    ]
+  _callSubcriber() {
+    console.log('state changed');
+  },
+  addPost() {    
+    let newPost = {
+      id: this._state.profilePage.postsData[postsData.length - 1].id + 1,
+      message: this._state.profilePage.newPostText,
+      likesCount: 5,
+      avatar: this._state.profilePage.users.user1.avatar
+    };
+    this._state.profilePage.postsData.push(newPost);
+    this._state.profilePage.newPostText = "Введите текст";
+    this._callSubcriber()
+  },
+  changePost(postMessage) {
+    this._state.profilePage.newPostText = postMessage;
+    this._callSubcriber()
+  },
+  sub(observer) {
+    this._callSubcriber = observer;
   }
 }
 
-export let addPost = (postMessage) => {
-  let newPost = {
-    id: 5,
-    message: postMessage,
-    likesCount: 5,
-    avatar: users.user1.avatar
-  };
-  postsData.push(newPost);
-  renderEntireTree(state, addPost, changePost)
-}
-
-export let changePost = postMessage => {
-  state.profilePage.newPostText = postMessage;
-  renderEntireTree(state, addPost, changePost)
-}
-
-export default state;
+export default store;

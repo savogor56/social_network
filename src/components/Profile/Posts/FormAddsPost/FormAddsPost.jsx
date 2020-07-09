@@ -6,10 +6,7 @@ const FormAddsPost = (props) => {
   let newPostElement = React.createRef();
 
   let addPost = () => {
-      let text = newPostElement.current.value;
-      console.log(text);
-      props.addPost(text);
-      newPostElement.current.value = '';
+      props.addPost();
   }
 
   let onPostChange = () => {
