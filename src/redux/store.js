@@ -1,8 +1,6 @@
-
-
-// let renderEntireTree = () => {
-//   console.log('state changed');
-// }
+import { profileReducer } from "./profile_reducer"
+import { dialogsReducer } from "./dialogs_reducer"
+import { asideReducer } from "./aside_reducer"
 
 let users = {
   user1: {
@@ -83,50 +81,6 @@ let postsData = [
   }
 ]
 
-// const state = {
-//   profilePage: {
-//     users: users,
-//     postsData: postsData,
-//     newPostText: "Введите текст"
-//   },
-//   dialogsPage: {
-//     dialogsData: dialogsData,
-//     messagesData: messagesData
-//   },
-//   aside: {
-//     friends: [
-//       {
-//         id: users.user2.id,
-//         name: users.user2.name,
-//         avatar: users.user2.avatar
-//       },
-//       {
-//         id: users.user3.id,
-//         name: users.user3.name,
-//         avatar: users.user3.avatar
-//       },
-//       {
-//         id: users.user4.id,
-//         name: users.user4.name,
-//         avatar: users.user4.avatar
-//       }
-//     ]
-//   }
-// }
-
-// export let addPost = () => {
-  
-// }
-
-// export let changePost = postMessage => {
-//   state.profilePage.newPostText = postMessage;
-//   renderEntireTree()
-// }
-
-// export let subcribe = observer => {
-//   renderEntireTree = observer;
-// }
-
 let store = {
   _state: {
     profilePage: {
@@ -136,7 +90,8 @@ let store = {
     },
     dialogsPage: {
       dialogsData: dialogsData,
-      messagesData: messagesData
+      messagesData: messagesData,
+      newMessage: ""
     },
     aside: {
       friends: [
@@ -158,29 +113,20 @@ let store = {
       ]
     }
   },
-  getState() {    
-    return this._state;
-  },
   _callSubcriber() {
     console.log('state changed');
   },
-  addPost() {    
-    let newPost = {
-      id: this._state.profilePage.postsData[postsData.length - 1].id + 1,
-      message: this._state.profilePage.newPostText,
-      likesCount: 5,
-      avatar: this._state.profilePage.users.user1.avatar
-    };
-    this._state.profilePage.postsData.push(newPost);
-    this._state.profilePage.newPostText = "Введите текст";
-    this._callSubcriber()
-  },
-  changePost(postMessage) {
-    this._state.profilePage.newPostText = postMessage;
-    this._callSubcriber()
-  },
-  sub(observer) {
+  getState() {    
+    return this._state;
+  },  
+  subscribe(observer) {
     this._callSubcriber = observer;
+  },  
+  dispatch(action) {
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.aside = asideReducer(this._state.aside, action);
+    this._callSubcriber(this._state);
   }
 }
 

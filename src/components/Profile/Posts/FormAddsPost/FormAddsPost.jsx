@@ -1,20 +1,13 @@
 import React from 'react';
 import classes from './FormAddsPost.module.css'
 
-const FormAddsPost = (props) => {
-  
+const FormAddsPost = (props) => {  
   let newPostElement = React.createRef();
-
-  let addPost = () => {
-      props.addPost();
-  }
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.changePost(text);
+    props.updateNewPostText(text);
   }
-  
-
   
   return(
     <div className={`${classes.form} wrap`}>
@@ -24,7 +17,7 @@ const FormAddsPost = (props) => {
         value={props.newPostText} 
         onChange={onPostChange}
       />
-      <button onClick={addPost}>Отправить</button>
+      <button onClick={props.addPost}>Отправить</button>
     </div>
   )
 }

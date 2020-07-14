@@ -6,36 +6,42 @@ import { FormAddMessage } from './FormAddMessage/FormAddMessage';
 
 
 const Dialogs = (props) => {
+  const dialogItems = props.dialogsPage.dialogsData.map((dialog) => {
+    return(
+    <DialogItem 
+      id={dialog.id} 
+      key={dialog.id} 
+      name={dialog.name}
+      avatar={dialog.avatar}
+    />
+    )
+  });
+
+  const messages = props.dialogsPage.messagesData.map((message) => {
+    return(
+      <Message 
+        id={message.id}
+        key={message.id}
+        text={message.text}
+      />
+    )
+  });
 
   return(
     <main className={`main wrap ${classes.dialogs}`}>
       <div className={`${classes.dialog_list} wrap`}>
-      {props.dialogsPage.dialogsData.map((dialog) => {
-        return(
-        <DialogItem 
-          id={dialog.id} 
-          key={dialog.id} 
-          name={dialog.name}
-          avatar={dialog.avatar}
-        />
-        )
-      })}    
+      {dialogItems}    
       </div>
       <div className={`${classes.chat} wrap`}>
-        {props.dialogsPage.messagesData.map((message) => {
-          return(
-            <Message 
-              id={message.id}
-              key={message.id}
-              text={message.text}
-            />
-          )
-        })}        
+        {messages}        
       </div>
       <div className="form_add">
-        <FormAddMessage />
-      </div>
-      
+        <FormAddMessage 
+          newMessage={props.dialogsPage.newMessage} 
+          sendMessage={props.sendMessage}  
+          onMessageChange={props.onMessageChange}
+        />
+      </div>      
     </main>
   )
 }
