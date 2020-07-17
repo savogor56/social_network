@@ -4,18 +4,19 @@ import classes from './FormAddsPost.module.css'
 const FormAddsPost = (props) => {  
   let newPostElement = React.createRef();
 
-  let onPostChange = () => {
+  let updateNewPostText = () => {
     let text = newPostElement.current.value;
-    props.updateNewPostText(text);
+    console.log(text);
+    props.onPostChange(text);
   }
   
-  return(
+  return (
     <div className={`${classes.form} wrap`}>
       <textarea 
         ref={newPostElement} 
         placeholder="Введите текст вашего сообщения" 
-        value={props.newPostText} 
-        onChange={onPostChange}
+        value={props.newPostText}
+        onChange={updateNewPostText}
       />
       <button onClick={props.addPost}>Отправить</button>
     </div>

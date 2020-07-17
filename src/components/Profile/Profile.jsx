@@ -1,6 +1,7 @@
 import React from 'react';
 import Posts from './Posts/Posts';
 import UserInfo from './UserInfo/UserInfo';
+import PostsContainer from './Posts/PostsContainer';
 
 
 
@@ -9,7 +10,7 @@ const Profile = (props) => {
   return(
     <main className={`main wrap`}>
       <UserInfo image={userVasya.avatar} name={userVasya.name} email={userVasya.email} description={userVasya.description} />
-      <Posts postsData={props.profilePage.postsData} dispatch={props.dispatch} newPostText={props.profilePage.newPostText} />
+      <PostsContainer  />
     </main>
   )
 }

@@ -1,23 +1,28 @@
 import React from 'react';
 import classes from './Posts.module.css';
 import Post from './Post/Post';
-import FormAddsPostContainer from './FormAddsPost/FormAddsPostContainer';
+import FormAddsPost from './FormAddsPost/FormAddsPost';
 
 const Posts = (props) => {
-  let postsElements = props.postsData.map((post) => {
+  console.log(props)
+  let postsElements = props.postsData.map( post => {
     return(
       <Post
         key={post.id}
         message={post.message} 
         avatar={post.avatar}
-        likesCount={post.likesCount0}
+        likesCount={post.likesCount}
       />
     )
   });
   
   return(
     <div className={classes.posts}>
-      <FormAddsPostContainer dispatch={props.dispatch} newPostText={props.newPostText} />
+      <FormAddsPost 
+        addPost={props.addPost} 
+        onPostChange={props.onPostChange}
+        newPostText={props.newPostText}         
+      />
       {postsElements}
     </div>   
   )
