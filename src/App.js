@@ -5,6 +5,7 @@ import { Aside } from './components/Aside/Aside';
 import Profile from './components/Profile/Profile';
 import { Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
+import { UsersContainer } from './components/Users/UsersContainer';
 
 
 
@@ -13,8 +14,9 @@ const App = (props) => {
       <div className="app_wrapper">      
         <Header />  
         <Aside state={props.store.getState().aside} />
-        <Route path="/profile" render={() => <Profile profilePage={props.store.getState().profilePage} dispatch={props.dispatch} /> }/>
+        <Route path="/profile" render={() => <Profile store={props.store} /> }/>
         <Route exact path="/dialogs" render={() => <DialogsContainer /> } />
+        <Route exact path="/users" render={() => <UsersContainer /> } />
       </div>    
   );
 }

@@ -22,7 +22,7 @@ const Dialogs = (props) => {
       <Message 
         id={message.id}
         key={message.id}
-        text={message.text}
+        text={message.text}w
       />
     )
   });

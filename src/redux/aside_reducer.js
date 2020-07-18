@@ -46,6 +46,38 @@ let initialState = {
       name: users.user4.name,
       avatar: users.user4.avatar
     }
+  ],
+  menu: [
+    {
+      id: 1,
+      name: 'Profile',
+      link: '/profile'
+    },
+    {
+      id: 2,
+      name: 'Dialogs',
+      link: '/dialogs'
+    },
+    {
+      id: 3,
+      name: 'News',
+      link: '/news'
+    },
+    {
+      id: 4,
+      name: 'Music',
+      link: '/music'
+    },
+    {
+      id: 5,
+      name: 'Settings',
+      link: '/settings'
+    },
+    {
+      id: 6,
+      name: 'Users',
+      link: '/users'
+    },
   ]
 }
 
