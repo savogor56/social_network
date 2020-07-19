@@ -4,7 +4,6 @@ import Post from './Post/Post';
 import FormAddsPost from './FormAddsPost/FormAddsPost';
 
 const Posts = (props) => {
-  console.log(props)
   let postsElements = props.postsData.map( post => {
     return(
       <Post

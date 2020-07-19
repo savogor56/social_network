@@ -6,7 +6,6 @@ const FormAddsPost = (props) => {
 
   let updateNewPostText = () => {
     let text = newPostElement.current.value;
-    console.log(text);
     props.onPostChange(text);
   }
   

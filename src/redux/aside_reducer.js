@@ -8,7 +8,7 @@ let users = {
   },
   user2: {
     id: 2,
-    name: "Pasha1",
+    name: "Pasha",
     avatar: "https://www.meme-arsenal.com/memes/b5d2ec8e1ffa887b239fb66a8653dfe6.jpg",
     email: "Paul345@mail.ru",
     description: "Its Pasha"

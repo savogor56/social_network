@@ -10,14 +10,17 @@ import { UsersContainer } from './components/Users/UsersContainer';
 
 
 const App = (props) => {
-  return (       
-      <div className="app_wrapper">      
+  return (
+    <div className="background blur">
+    <div className="app_wrapper">      
         <Header />  
         <Aside state={props.store.getState().aside} />
         <Route path="/profile" render={() => <Profile store={props.store} /> }/>
         <Route exact path="/dialogs" render={() => <DialogsContainer /> } />
         <Route exact path="/users" render={() => <UsersContainer /> } />
-      </div>    
+      </div>  
+    </div>       
+        
   );
 }
 
