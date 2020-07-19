@@ -5,7 +5,7 @@ import { Aside } from './components/Aside/Aside';
 import Profile from './components/Profile/Profile';
 import { Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import { UsersContainer } from './components/Users/UsersContainer';
+import UsersContainer from './components/Users/UsersContainer';
 
 
 
@@ -19,8 +19,7 @@ const App = (props) => {
         <Route exact path="/dialogs" render={() => <DialogsContainer /> } />
         <Route exact path="/users" render={() => <UsersContainer /> } />
       </div>  
-    </div>       
-        
+    </div>        
   );
 }
 
