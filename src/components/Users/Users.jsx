@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from './Users.module.css'
 import User from './User/User';
+import Preloader from '../common/Preloader/Preloader';
 
 const Users = (props) => {
-  let pageCount = Math.ceil(props.totalUsers / props.pageSize);
+  let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];;
     for (let i = 1; i <= pageCount; i++) {
       pages.push(i);
@@ -17,6 +18,7 @@ const Users = (props) => {
   
     return (
       <main className={`${classes.users} wrap`}>
+      {props.isFetching && <Preloader /> }
         {usersElements}
         <div className={classes.pagination}>
         {pages.map((p) => {
