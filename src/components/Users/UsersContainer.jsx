@@ -79,4 +79,12 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+// let actionCreators = {
+//   toggleFollow,
+//   setUsers,
+//   selectPage,
+//   setTotalCurrentsUsers: setTotalCurrentsUsers,  
+//   toggleIsFetching
+// }
+
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
