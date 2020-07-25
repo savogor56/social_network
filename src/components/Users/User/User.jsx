@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './User.module.css';
 import defaultAvatar from '../../../assets/img/default_avatar.jpg';
+import { NavLink } from 'react-router-dom';
 
 const User = (props) => {
   let avatar = props.user.photos.small;
@@ -14,7 +15,9 @@ const User = (props) => {
   return (
     <div className={classes.user}>
       <div className={classes.user_follow}>
-        <img src={avatar ? avatar : defaultAvatar } alt="" />
+      <NavLink to={`/profile/${props.user.id}`}>
+      <img src={avatar ? avatar : defaultAvatar } alt="" />
+      </NavLink>        
         <button onClick={toggleFollow} >
         {props.user.followed ? 'follow' : 'unfollow'}
         </button>

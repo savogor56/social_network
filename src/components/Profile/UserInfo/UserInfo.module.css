@@ -1,9 +1,43 @@
 .user_info { 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas: 
+  'main sub'
+  'main contacts';
+  grid-template-columns: 1fr 2fr;
   }
+
+.main_info {
+display: flex;
+flex-direction: column;
+grid-area: main;
+}
+
+.sub_info {
+  grid-area: sub;
+  display: flex;
+}
+.sub_info img{
+  grid-area: sub;
+  width: 128px;
+  height: 128px;
+  padding: 5px;
+}
+
+.contacts {
+  grid-area: contacts;
+  padding: 5px;
+}
+
+.contacts div{
+  padding: 2.5px;
+}
   
 .avatar img{
     width: 200px;
     height: 128px;
-  }
+}
+
+.about {
+font-size: 1.3rem;
+}
+

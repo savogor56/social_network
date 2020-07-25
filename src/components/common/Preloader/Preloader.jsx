@@ -3,7 +3,7 @@ import classes from './Preloader.module.css';
 
 const Preloader = () => {
   return (
-    <div class={classes.lds_ripple}><div></div><div></div></div>
+    <div className={classes.lds_ripple}><div></div><div></div></div>
   );
 }
 

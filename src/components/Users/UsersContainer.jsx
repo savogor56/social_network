@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { toggleFollowAC, setUsersAC, selectPageAC, setTotalCurrentsUsersAC, toggleIsFetchingAC } from '../../redux/users_reducer';
-// import UsersAPIComponent from './UsersAPIComponent';
-import classes from './Users.module.css';
+import { toggleFollow, setUsers, selectPage, setTotalCurrentsUsers, toggleIsFetching } from '../../redux/users_reducer';
 import * as axios from 'axios';
-import loader from '../../assets/img/loader.svg';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.toggleIsFetching(this.props.isFetching);
+    if(this.props.users.length === 0) {
+      this.props.toggleIsFetching(this.props.isFetching);
       axios
       .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
       .then((response) => {
@@ -17,8 +15,9 @@ class UsersContainer extends React.Component {
         const users = response.data.items;
         const totalUsersCount = Math.ceil(response.data.totalCount / 500);
         this.props.setUsers(users);
-        this.props.setTotalCountUsers(totalUsersCount)
+        this.props.setTotalCurrentsUsers(totalUsersCount)
       })
+    }    
   }
 
   changePage = (p) => {
@@ -59,32 +58,12 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleFollow: (followed, userId) => {
-      dispatch(toggleFollowAC(followed, userId));
-    },
-    setUsers: (users) => {
-      dispatch(setUsersAC(users));
-    },
-    selectPage: (page) => {
-      dispatch(selectPageAC(page));
-    },
-    setTotalCountUsers: (totalCountUser) => {
-      dispatch(setTotalCurrentsUsersAC(totalCountUser));
-    },
-    toggleIsFetching: (isFetching) => {
-      dispatch(toggleIsFetchingAC(isFetching));
-    }
-  }
+let mapDispatchToProps = {
+  toggleFollow,
+  setUsers,
+  selectPage,
+  setTotalCurrentsUsers,  
+  toggleIsFetching
 }
-
-// let actionCreators = {
-//   toggleFollow,
-//   setUsers,
-//   selectPage,
-//   setTotalCurrentsUsers: setTotalCurrentsUsers,  
-//   toggleIsFetching
-// }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

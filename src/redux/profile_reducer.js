@@ -1,5 +1,6 @@
 const add_post = "add-post";
 const update_new_post_text = "update-new-post-text";
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 let initialState = {
   users: {
@@ -46,7 +47,8 @@ let initialState = {
       avatar: "https://s3.amazonaws.com/liberty-uploads/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg"
     }
   ],
-  newPostText: ""
+  newPostText: "",
+  userProfile: null
 }
 
 
@@ -70,8 +72,13 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         newPostText: action.newText
       };      
+    case SET_USER_PROFILE: 
+      return {
+        ...state,
+        userProfile: action.profileData
+      };      
     default: 
-      return state;     
+      return state;
   }  
 }
 
@@ -87,3 +94,8 @@ export const updateNewPostTextActionCreator = (text) => {
     newText: text
   }
 };
+
+export const setUserProfile = (profileData) => ({
+  type: SET_USER_PROFILE,
+  profileData
+})
