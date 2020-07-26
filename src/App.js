@@ -15,7 +15,7 @@ const App = (props) => {
     <div className="app_wrapper">      
         <Header />  
         <Aside state={props.store.getState().aside} />
-        <Route path="/profile" render={() => <ProfileContainer /> }/>
+        <Route path="/profile/:userId?" render={() => <ProfileContainer /> }/>
         <Route exact path="/dialogs" render={() => <DialogsContainer /> } />
         <Route exact path="/users" render={() => <UsersContainer /> } />
       </div>  
