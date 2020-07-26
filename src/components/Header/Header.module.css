@@ -1,6 +1,7 @@
 .header {
   grid-area: header;
   display: flex;
+  justify-content: space-between;
 }
 
 .header img {
@@ -11,3 +12,15 @@
 .title {
   color: blueviolet;
 }
+
+.info_block {
+  display: flex;
+}
+
+.login_block a {
+  text-decoration: none;
+}
+.login_block a:hover {
+  color: rgb(76, 27, 121);
+}
+

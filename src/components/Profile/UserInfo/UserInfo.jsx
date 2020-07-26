@@ -8,7 +8,6 @@ const UserInfo = (props) => {
   if(!props.userProfile) {
     return <Preloader />
   }
-  console.log(props.userProfile.contacts);
   return(
     <div className={classes.user_info + ' wrap'}>
       <div className={classes.main_info}>
