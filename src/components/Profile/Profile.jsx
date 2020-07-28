@@ -7,7 +7,7 @@ import PostsContainer from './Posts/PostsContainer';
 const Profile = (props) => {
   return(
     <main className={`main wrap`}>
-      <UserInfo userProfile={props.userProfile}  />    
+      <UserInfo userProfile={props.userProfile} />    
       <PostsContainer />
     </main>
   )

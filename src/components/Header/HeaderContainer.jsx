@@ -1,27 +1,37 @@
 import React from 'react';
-import logo from '../../logo.svg';
-import classes from './Header.module.css';
 import { connect } from 'react-redux';
 import Header from './Header';
 import Axios from 'axios';
-import { setUserData, authReducer, toggleIsFetching } from '../../redux/auth_reducer';
+import { setUserData, toggleIsFetching } from '../../redux/auth_reducer';
+import { setUserProfile } from '../../redux/profile_reducer';
 
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
+    this.props.toggleIsFetching(this.props.isFetching);
     Axios.get('https://social-network.samuraijs.com/api/1.0/auth/me',{
       withCredentials: true
     })
-      .then(response => {
-        this.props.toggleIsFetching(this.props.isFetching);
+      .then(response => {        
         let {data, resultCode, messages } = response.data;
-          this.props.setUserData(data, resultCode, messages);
+        this.props.setUserData(data, resultCode, messages);
+        Axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + data.id)
+          .then(Response => {
+            this.props.toggleIsFetching(this.props.isFetching);
+            this.props.setUserProfile(Response.data);
+          })
+          .catch(reason => {
+            this.props.toggleIsFetching(this.props.isFetching);
+          })
+      })
+      .catch(reason => {
+        this.props.toggleIsFetching(this.props.isFetching);
       })
   }
 
   render() {
     return(
-      <Header isFetching={this.props.isFetching} userData={this.props.userData} isAuth={this.props.isAuth} />
+      <Header {...this.props} />
     )
   }
 }
@@ -29,11 +39,14 @@ class HeaderContainer extends React.Component {
 const mapStateToProps = (state) => ({
   isFetching: state.auth.isFetching,
   userData: state.auth.data,
-  isAuth: state.auth.isAuth
+  isAuth: state.auth.isAuth,
+  userProfile: state.profilePage.userProfile
 });
+
 const mapDispatchToProps = {
   setUserData,
-  toggleIsFetching
+  toggleIsFetching,
+  setUserProfile
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

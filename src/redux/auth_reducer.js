@@ -5,7 +5,7 @@ let initialState = {
     resultCode: null,
     messages: null,
     data: null,
-    isFetching: true,
+    isFetching: false,
     isAuth: false
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './UserInfo.module.css'
 import Preloader from '../../common/Preloader/Preloader';
 import findWorkImg from '../../../assets/img/find_work.jpg';
+import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
 
 
 const UserInfo = (props) => {
@@ -15,7 +16,7 @@ const UserInfo = (props) => {
             <h3>{props.userProfile.fullName}</h3>
           </div>
           <div className={classes.avatar}>
-            <img src={props.userProfile.photos.large} alt=""></img>
+          <img src={props.userProfile.photos.large ? props.userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
           <div className={classes.about}>{props.userProfile.aboutMe}</div>
       </div>

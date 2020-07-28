@@ -20,7 +20,11 @@
 .login_block a {
   text-decoration: none;
 }
+
 .login_block a:hover {
   color: rgb(76, 27, 121);
+}
+
+.user_info {
 }
 
