@@ -3,36 +3,30 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import { toggleFollow, setUsers, selectPage, setTotalCurrentsUsers, toggleIsFetching } from '../../redux/users_reducer';
 import * as axios from 'axios';
+import { getUsers } from './../../api/api';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     if(this.props.users.length === 0) {
       this.props.toggleIsFetching(this.props.isFetching);
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
-      .then((response) => {        
-        this.props.toggleIsFetching(this.props.isFetching);        
-        const users = response.data.items;
-        const totalUsersCount = Math.ceil(response.data.totalCount / 50);
-        this.props.setUsers(users);
-        this.props.setTotalCurrentsUsers(totalUsersCount);
+      getUsers(this.props.currentPage, this.props.pageSize)
+        .then((response) => {      
+          const users = response.data.items;
+          const totalUsersCount = Math.ceil(response.data.totalCount / 50);
+          this.props.setUsers(users);
+          this.props.setTotalCurrentsUsers(totalUsersCount);
       })
-      .catch(reason => {
-        this.props.toggleIsFetching(this.props.isFetching);
-      })
-    }    
+    }
   }
 
-  changePage = (p) => {
+  changePage = (pageNumber) => {
     this.props.toggleIsFetching(this.props.isFetching);
-    this.props.selectPage(p);
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`)
+    this.props.selectPage(pageNumber);
+      getUsers(pageNumber, this.props.pageSize)
       .then((response) => {
         this.props.toggleIsFetching(this.props.isFetching);
         const users = response.data.items;  
         this.props.setUsers(users);
-      })
-      .catch(reason => {
-        this.props.toggleIsFetching(this.props.isFetching);
       })
   }
   

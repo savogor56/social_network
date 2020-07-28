@@ -12,20 +12,17 @@ class HeaderContainer extends React.Component {
     Axios.get('https://social-network.samuraijs.com/api/1.0/auth/me',{
       withCredentials: true
     })
-      .then(response => {        
+      .then(response => {   
+        this.props.toggleIsFetching(this.props.isFetching);     
         let {data, resultCode, messages } = response.data;
         this.props.setUserData(data, resultCode, messages);
         Axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + data.id)
           .then(Response => {
-            this.props.toggleIsFetching(this.props.isFetching);
             this.props.setUserProfile(Response.data);
           })
           .catch(reason => {
             this.props.toggleIsFetching(this.props.isFetching);
           })
-      })
-      .catch(reason => {
-        this.props.toggleIsFetching(this.props.isFetching);
       })
   }
 

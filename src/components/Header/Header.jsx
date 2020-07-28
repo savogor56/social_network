@@ -9,7 +9,7 @@ const Header = (props) => {
   return(
     <header className={`${classes.header} wrap`}>
       <div className={classes.info_block}>
-        <img src={logo} alt="" /> 
+        <img src={logo} alt="" />   
         <div className={classes.title}>Social Network</div>
       </div>
       {        
