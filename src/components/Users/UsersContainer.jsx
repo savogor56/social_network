@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
 import { toggleFollow, setUsers, selectPage, setTotalCurrentsUsers, toggleIsFetching } from '../../redux/users_reducer';
-import * as axios from 'axios';
 import { getUsers } from './../../api/api';
 
 class UsersContainer extends React.Component {
@@ -10,9 +9,9 @@ class UsersContainer extends React.Component {
     if(this.props.users.length === 0) {
       this.props.toggleIsFetching(this.props.isFetching);
       getUsers(this.props.currentPage, this.props.pageSize)
-        .then((response) => {      
-          const users = response.data.items;
-          const totalUsersCount = Math.ceil(response.data.totalCount / 50);
+        .then((data) => {      
+          const users = data.items;
+          const totalUsersCount = Math.ceil(data.totalCount / 50);
           this.props.setUsers(users);
           this.props.setTotalCurrentsUsers(totalUsersCount);
       })
@@ -23,9 +22,9 @@ class UsersContainer extends React.Component {
     this.props.toggleIsFetching(this.props.isFetching);
     this.props.selectPage(pageNumber);
       getUsers(pageNumber, this.props.pageSize)
-      .then((response) => {
+      .then((data) => {
         this.props.toggleIsFetching(this.props.isFetching);
-        const users = response.data.items;  
+        const users = data.items;  
         this.props.setUsers(users);
       })
   }
