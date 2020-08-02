@@ -1,13 +1,17 @@
 import React from 'react';
 import UserInfo from './UserInfo/UserInfo';
 import PostsContainer from './Posts/PostsContainer';
+import Preloader from '../common/Preloader/Preloader';
 
 
 
 const Profile = (props) => {
   return(
     <main className={`main wrap`}>
-      <UserInfo userProfile={props.userProfile} />    
+      {props.isFetching ? 
+      <Preloader /> :
+      <UserInfo userProfile={props.userProfile} />  
+      }        
       <PostsContainer />
     </main>
   )

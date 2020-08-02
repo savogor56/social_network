@@ -1,27 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { toggleFollow, setUsers, selectPage, setTotalCurrentsUsers, toggleIsFetching } from '../../redux/users_reducer';
-import { getUsers } from './../../api/api';
+import { toggleFollow, setUsers, selectPage, toggleIsFetching } from '../../redux/users_reducer';
+import { usersAPI } from './../../api/api';
 
 class UsersContainer extends React.Component {
-  componentDidMount() {
+  componentDidMount() {    
     if(this.props.users.length === 0) {
-      this.props.toggleIsFetching(this.props.isFetching);
-      getUsers(this.props.currentPage, this.props.pageSize)
-        .then((data) => {      
+      usersAPI.getUsers(this.props.currentPage, this.props.pageSize, this.props.toggleIsFetching, this.props.isFetching)
+        .then((data) => {
+          if (this.props.isFetching) {
+            this.props.toggleIsFetching(this.props.isFetching);
+          }          
           const users = data.items;
           const totalUsersCount = Math.ceil(data.totalCount / 50);
-          this.props.setUsers(users);
-          this.props.setTotalCurrentsUsers(totalUsersCount);
+          this.props.setUsers(users, totalUsersCount);
+          // this.props.setTotalCurrentsUsers(totalUsersCount);
       })
     }
   }
 
   changePage = (pageNumber) => {
-    this.props.toggleIsFetching(this.props.isFetching);
     this.props.selectPage(pageNumber);
-      getUsers(pageNumber, this.props.pageSize)
+    usersAPI.getUsers(pageNumber, this.props.pageSize, this.props.toggleIsFetching, this.props.isFetching)
       .then((data) => {
         this.props.toggleIsFetching(this.props.isFetching);
         const users = data.items;  
@@ -59,7 +60,7 @@ let mapDispatchToProps = {
   toggleFollow,
   setUsers,
   selectPage,
-  setTotalCurrentsUsers,  
+  // setTotalCurrentsUsers,  
   toggleIsFetching
 }
 

@@ -1,38 +1,9 @@
 const add_post = "add-post";
 const update_new_post_text = "update-new-post-text";
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
 let initialState = {
-  users: {
-    user1: {
-      id: 1,
-      name: "Vasya",
-      avatar: "https://s3.amazonaws.com/liberty-uploads/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg",
-      email: "Vasya228@mail.ru",
-      description: "It is Vasiliy"
-    },
-    user2: {
-      id: 2,
-      name: "Pasha",
-      avatar: "https://www.meme-arsenal.com/memes/b5d2ec8e1ffa887b239fb66a8653dfe6.jpg",
-      email: "Paul345@mail.ru",
-      description: "Its Pasha"
-    },
-    user3: {
-      id: 3,
-      name: "Andrey",
-      avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRvO35OFDvH2fHI947iBUePk-f2MyDsjVr-Tw&usqp=CAU",
-      email: "Andru1488@mail.ru",
-      description: "Its Andrey"
-    },
-    user4: {
-      id: 4,
-      name: "Ivan",
-      avatar: "https://i.pinimg.com/originals/0c/a9/e2/0ca9e28dcb12dc698cfd2beda6d6fa64.jpg",
-      email: "Ivaness@mail.ru",
-      description: "Its Ivan"
-    }
-  },
   postsData: [
     {
       id: 1,
@@ -48,7 +19,8 @@ let initialState = {
     }
   ],
   newPostText: "",
-  userProfile: null
+  userProfile: null,
+  isFetching: false
 }
 
 
@@ -76,7 +48,12 @@ export const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         userProfile: action.profileData
-      };      
+      };
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }     
     default: 
       return state;
   }  
@@ -98,4 +75,9 @@ export const updateNewPostTextActionCreator = (text) => {
 export const setUserProfile = (profileData) => ({
   type: SET_USER_PROFILE,
   profileData
+})
+
+export const toggleIsFetching = (isFetching) => ({
+  type: TOGGLE_IS_FETCHING,
+  isFetching: !isFetching
 })
