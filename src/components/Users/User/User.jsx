@@ -9,18 +9,20 @@ const User = (props) => {
 
   let toggleFollow = () => {
     let userId = props.user.id;
-    let followed = props.user.followed
-    if (!followed) {
-      
+    let followed = props.user.followed;
+    props.toggleIsFollowing(true, userId);
+    if (!followed) {  
       followAPI.follow(userId)
         .then(data => {
+          props.toggleIsFollowing(false, userId);
           if (data.resultCode === 0) {            
             props.toggleFollow(followed, userId);
           }
         })  
     } else {
       followAPI.unfollow(userId)
-        .then(data => {
+        .then(data => {          
+          props.toggleIsFollowing(false, userId);
           if (data.resultCode === 0) {
             props.toggleFollow(followed, userId);
           }
@@ -34,7 +36,7 @@ const User = (props) => {
       <NavLink to={`/profile/${props.user.id}`}>
       <img src={avatar ? avatar : defaultAvatar } alt="" />
       </NavLink>        
-        <button onClick={toggleFollow} >
+        <button disabled={props.followingInProgress.some((id) => id === props.user.id )} onClick={toggleFollow} >
         {!props.user.followed ? 'follow' : 'unfollow'}
         </button>
       </div>

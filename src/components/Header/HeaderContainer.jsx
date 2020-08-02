@@ -9,16 +9,26 @@ import { authAPI, profileAPI} from './../../api/api';
 class HeaderContainer extends React.Component {
   componentDidMount() {
     if (!this.props.userData) {
-      this.props.toggleIsFetching(this.props.isFetching);
+      if (!this.props.isFetching) {
+              this.props.toggleIsFetching(this.props.isFetching);
+            }
       authAPI.getCurrentUserData()
       .then(curUserData => {                
         let {data, resultCode, messages } = curUserData;
         this.props.setUserData(data, resultCode, messages);
-        profileAPI.getProfile(data.id)
+        if(resultCode === 0) {
+          profileAPI.getProfile(data.id)
           .then(data => {
-            this.props.toggleIsFetching(this.props.isFetching);
+            if (this.props.isFetching) {
+              this.props.toggleIsFetching(this.props.isFetching);
+            }           
             this.props.setUserProfile(data);
           })
+        } else {
+          if (this.props.isFetching) {
+              this.props.toggleIsFetching(this.props.isFetching);
+            } 
+        }        
       })
     }
       

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { toggleFollow, setUsers, selectPage, toggleIsFetching } from '../../redux/users_reducer';
+import { toggleFollow, setUsers, selectPage, toggleIsFetching, toggleIsFollowing } from '../../redux/users_reducer';
 import { usersAPI } from './../../api/api';
 
 class UsersContainer extends React.Component {
@@ -33,13 +33,8 @@ class UsersContainer extends React.Component {
   render() {    
     return(    
       <Users
-        isFetching={this.props.isFetching}
         changePage={this.changePage}
-        users={this.props.users}
-        totalUsersCount={this.props.totalUsersCount}
-        pageSize={this.props.pageSize}
-        currentPage={this.props.currentPage}
-        toggleFollow={this.props.toggleFollow}
+        {...this.props}
       />    
     )
   }
@@ -52,7 +47,8 @@ const mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
   }
 }
 
@@ -60,8 +56,8 @@ let mapDispatchToProps = {
   toggleFollow,
   setUsers,
   selectPage,
-  // setTotalCurrentsUsers,  
-  toggleIsFetching
+  toggleIsFetching,
+  toggleIsFollowing
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
