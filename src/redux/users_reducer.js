@@ -1,6 +1,8 @@
+import { usersAPI } from "../api/api";
+
 const FOLLOW = 'FOLLOW';
 const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SELECT_PAGE';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING';
 
@@ -72,7 +74,7 @@ export const setUsers = (users, totalUsersCount) => {
   }
 }
 
-export const selectPage = (page) => {
+export const setCurrentPage = (page) => {
   return {
     type: SET_CURRENT_PAGE,
     page
@@ -82,7 +84,7 @@ export const selectPage = (page) => {
 export const toggleIsFetching = (isFetching) => {
   return {
     type: TOGGLE_IS_FETCHING,
-    isFetching: !isFetching
+    isFetching
   }
 }
 
@@ -91,5 +93,42 @@ export const toggleIsFollowing = (isFollowing, userId) => {
     type: TOGGLE_IS_FOLLOWING,
     isFollowing,
     userId
+  }
+}
+
+export const getUsers = (currentPage, pageSize) => {
+  return (dispatch) => {
+    dispatch(setCurrentPage(currentPage));
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsers(currentPage, pageSize)
+      .then((data) => {
+        dispatch(toggleIsFetching(false))
+        const users = data.items;
+        const totalUsersCount = Math.ceil(data.totalCount / 50);
+        dispatch(setUsers(users, totalUsersCount));
+      })
+  }
+}
+
+export const follow = (followed, userId) => {
+  return (dispatch) => {
+    usersAPI.follow(userId)
+      .then(data => {
+        dispatch(toggleIsFollowing(false, userId))
+        if (data.resultCode === 0) {
+          dispatch(toggleFollow(followed, userId));        }
+      })
+  }
+}
+
+export const unfollow = (followed, userId) => {
+  return (dispatch) => {
+    usersAPI.unfollow(userId)
+      .then(data => {
+        dispatch(toggleIsFollowing(false, userId))
+        if (data.resultCode === 0) {
+          dispatch(toggleFollow(followed, userId));
+        }
+      })
   }
 }

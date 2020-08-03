@@ -1,3 +1,5 @@
+import { profileAPI } from "../api/api";
+
 const add_post = "add-post";
 const update_new_post_text = "update-new-post-text";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -79,5 +81,16 @@ export const setUserProfile = (profileData) => ({
 
 export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
-  isFetching: !isFetching
+  isFetching
 })
+
+export const getProfile = (userId) => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    profileAPI.getProfile(userId)
+      .then(data => {
+        dispatch(toggleIsFetching(false))
+        dispatch(setUserProfile(data))
+      })
+  }
+}

@@ -6,27 +6,12 @@ import {followAPI} from '../../../api/api';
 
 const User = (props) => {
   let avatar = props.user.photos.small;
-
   let toggleFollow = () => {
-    let userId = props.user.id;
-    let followed = props.user.followed;
-    props.toggleIsFollowing(true, userId);
-    if (!followed) {  
-      followAPI.follow(userId)
-        .then(data => {
-          props.toggleIsFollowing(false, userId);
-          if (data.resultCode === 0) {            
-            props.toggleFollow(followed, userId);
-          }
-        })  
+    props.toggleIsFollowing(true, props.user.id);
+    if (!props.user.followed) {
+      props.follow(props.user.followed, props.user.id);
     } else {
-      followAPI.unfollow(userId)
-        .then(data => {          
-          props.toggleIsFollowing(false, userId);
-          if (data.resultCode === 0) {
-            props.toggleFollow(followed, userId);
-          }
-        })
+      props.unfollow(props.user.followed, props.user.id);
     }      
   }
 

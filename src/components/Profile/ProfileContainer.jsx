@@ -2,8 +2,8 @@ import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getProfile, profileAPI } from '../../api/api';
-import { toggleIsFetching, setUserProfile } from './../../redux/profile_reducer';
+import { profileAPI } from '../../api/api';
+import { toggleIsFetching, setUserProfile, getProfile } from './../../redux/profile_reducer';
 
 
 
@@ -13,12 +13,7 @@ class ProfileContainer extends React.Component {
       let userId = this.props.match.params.userId ?
         this.props.match.params.userId : this.props.userData.id;
       if (!this.props.userProfile || this.props.userProfile.userId !== userId) {
-        this.props.toggleIsFetching(this.props.isFetching);
-        profileAPI.getProfile(userId)
-          .then(data => {
-            this.props.toggleIsFetching(this.props.isFetching);
-            this.props.setUserProfile(data);
-          })
+        this.props.getProfile(userId)
       }
     }
     
@@ -39,7 +34,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setUserProfile,
-  toggleIsFetching
+  toggleIsFetching,
+  getProfile
 };
 
 

@@ -1,3 +1,6 @@
+import { authAPI } from "../api/api";
+import { getProfile } from "./profile_reducer";
+
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -42,3 +45,16 @@ export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching: !isFetching
 })
+
+export const getCurrentUserData = () => {
+  return (dispatch) => {
+    dispatch(toggleIsFetching(false));    
+    authAPI.getCurrentUserData()
+      .then(curUserData => {
+        dispatch(toggleIsFetching(true));
+        let { data, resultCode, messages } = curUserData;
+        dispatch(setUserData(data, resultCode, messages));
+        getProfile(data.id);
+      })
+  }
+}

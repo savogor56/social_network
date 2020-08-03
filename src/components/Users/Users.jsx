@@ -14,9 +14,7 @@ const Users = (props) => {
         <User 
           key={user.id} 
           user={user} 
-          toggleFollow={props.toggleFollow} 
-          toggleIsFollowing={props.toggleIsFollowing}
-          followingInProgress={props.followingInProgress}         
+          {...props}         
         />
       )
     })
