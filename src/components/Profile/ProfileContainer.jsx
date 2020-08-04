@@ -1,14 +1,13 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { profileAPI } from '../../api/api';
-import { toggleIsFetching, setUserProfile, getProfile } from './../../redux/profile_reducer';
+import { withRouter, Redirect } from 'react-router-dom';
+import { getProfile } from './../../redux/profile_reducer';
 
 
 
 class ProfileContainer extends React.Component {  
-  componentDidMount() {    
+  componentDidMount() {   
     if (this.props.userData !== null) {
       let userId = this.props.match.params.userId ?
         this.props.match.params.userId : this.props.userData.id;
@@ -20,21 +19,22 @@ class ProfileContainer extends React.Component {
   }
   
   render() {
-    return(
-      <Profile {...this.props} />
-    )
+    if (this.props.isAuth) {
+      return <Profile {...this.props} />
+    } else {
+      return <Redirect to={"/login"} />
+    }    
   }
 }
 
 const mapStateToProps = state => ({
     userProfile: state.profilePage.userProfile,
     userData: state.auth.data,
-    isFetching: state.profilePage.isFetching
+    isFetching: state.profilePage.isFetching,
+    isAuth: state.auth.isAuth
 });
 
 const mapDispatchToProps = {
-  setUserProfile,
-  toggleIsFetching,
   getProfile
 };
 

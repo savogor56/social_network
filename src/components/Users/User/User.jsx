@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './User.module.css';
 import defaultAvatar from '../../../assets/img/default_avatar.jpg';
 import { NavLink } from 'react-router-dom';
-import {followAPI} from '../../../api/api';
 
 const User = (props) => {
   let avatar = props.user.photos.small;

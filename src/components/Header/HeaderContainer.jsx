@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import { setUserData, toggleIsFetching, getCurrentUserData } from '../../redux/auth_reducer';
-import { setUserProfile, getProfile } from '../../redux/profile_reducer';
-import { authAPI } from './../../api/api';
+import { getCurrentUserData } from '../../redux/auth_reducer';
+import { getProfile } from '../../redux/profile_reducer';
 
 
 class HeaderContainer extends React.Component {
@@ -28,9 +27,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  setUserData,
-  toggleIsFetching,
-  setUserProfile,
   getProfile,
   getCurrentUserData
 }
