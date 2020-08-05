@@ -1,7 +1,7 @@
 import { profileReducer } from "./profile_reducer";
 import { dialogsReducer } from "./dialogs_reducer";
 import { asideReducer } from "./aside_reducer";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import { usersReducer } from "./users_reducer";
 import { authReducer } from "./auth_reducer";
 import thunkMiddleware from "redux-thunk";
@@ -14,8 +14,7 @@ let reducers = combineReducers({
  auth: authReducer
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
-
-window.store = store;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 export default store;

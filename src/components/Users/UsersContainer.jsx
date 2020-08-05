@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
 import { toggleIsFollowing, getUsers, follow, unfollow } from '../../redux/users_reducer';
-import { Redirect } from 'react-router-dom';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class UsersContainer extends React.Component {
   componentDidMount() {    
@@ -16,9 +17,6 @@ class UsersContainer extends React.Component {
   }
   
   render() {
-    if (!this.props.isAuth) {
-      return <Redirect to={"/login"} />
-    }    
     return(    
       <Users
         changePage={this.changePage}
@@ -27,7 +25,6 @@ class UsersContainer extends React.Component {
     )
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {
@@ -48,4 +45,7 @@ let mapDispatchToProps = {
   unfollow
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default compose (
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+  )(UsersContainer)
