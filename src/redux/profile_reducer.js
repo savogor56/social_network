@@ -22,7 +22,8 @@ let initialState = {
   ],
   newPostText: "",
   userProfile: null,
-  isFetching: false
+  isFetching: false,
+  status: ''
 }
 
 

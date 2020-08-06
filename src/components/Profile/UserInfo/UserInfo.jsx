@@ -3,6 +3,7 @@ import classes from './UserInfo.module.css'
 import Preloader from '../../common/Preloader/Preloader';
 import findWorkImg from '../../../assets/img/find_work.jpg';
 import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
+import UserStatus from './UserStatus';
 
 
 const UserInfo = (props) => {
@@ -19,6 +20,7 @@ const UserInfo = (props) => {
           <img src={props.userProfile.photos.large ? props.userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
           <div className={classes.about}>{props.userProfile.aboutMe}</div>
+          <UserStatus status='status' />
       </div>
       <div className={classes.sub_info}>
         {props.userProfile.lookingForAJob && <img src={findWorkImg} alt='' />}
