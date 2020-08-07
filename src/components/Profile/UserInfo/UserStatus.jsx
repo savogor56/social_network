@@ -18,8 +18,8 @@ class UserStatus extends React.Component {
       <div className={classes.status}>
         {
           this.state.editMode ?
-          <input autoFocus={true} onDoubleClick={this.toggleEditMode} type="text" value={this.props.status} /> :
-          <span onDoubleClick={this.toggleEditMode} >{this.props.status}</span>
+            <input autoFocus={true} onBlur={this.toggleEditMode} type="text" value={this.props.profileStatus} /> :
+            <span onDoubleClick={this.toggleEditMode} >{this.props.profileStatus}</span>
         }   
       </div>
     );
