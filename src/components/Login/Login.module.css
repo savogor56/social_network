@@ -1,0 +1,26 @@
+.login_form_wrap {
+  /* background: #e3e3e3; */
+}
+
+.login_form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  }
+
+.login_form button {
+  font-size: 1.1rem;
+}
+
+.login_form input {
+  font-size: 1.1rem;
+}
+
+.login_form span {
+  font-size: 1.1rem;
+}
+
+.title {
+  text-align: center;
+}

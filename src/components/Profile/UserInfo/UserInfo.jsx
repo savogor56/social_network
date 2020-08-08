@@ -20,7 +20,10 @@ const UserInfo = (props) => {
           <img src={props.userProfile.photos.large ? props.userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
           <div className={classes.about}>{props.userProfile.aboutMe}</div>
-          <UserStatus profileStatus={props.profileStatus} />
+          <UserStatus 
+            profileStatus={props.profileStatus} 
+            putProfileStatus={props.putProfileStatus} 
+          />
       </div>
       <div className={classes.sub_info}>
         {props.userProfile.lookingForAJob && <img src={findWorkImg} alt='' />}

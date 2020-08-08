@@ -10,7 +10,11 @@ const Profile = (props) => {
     <main className={`main wrap`}>
       {props.isFetching ? 
       <Preloader /> :
-      <UserInfo userProfile={props.userProfile}  profileStatus={props.profileStatus} />  
+      <UserInfo 
+        userProfile={props.userProfile} 
+        profileStatus={props.profileStatus} 
+        putProfileStatus={props.putProfileStatus}      
+      />
       }        
       <PostsContainer />
     </main>

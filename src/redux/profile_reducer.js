@@ -101,8 +101,8 @@ export const getProfile = (userId) => {
     dispatch(toggleIsFetching(true));
     profileAPI.getProfile(userId)
       .then(data => {
-        dispatch(toggleIsFetching(false))
-        dispatch(setUserProfile(data))
+        dispatch(toggleIsFetching(false));
+        dispatch(setUserProfile(data));
       })
   }
 }
@@ -111,7 +111,18 @@ export const getProfileStatus = (userId) => {
   return dispatch => {
     profileAPI.getProfileStatus(userId)
       .then(data => {
-        dispatch(setProfileStatus(data))
+        dispatch(setProfileStatus(data));
+      })
+  }
+}
+
+export const putProfileStatus = (profileStatus) => {
+  return dispatch => {
+    profileAPI.putProfileStatus(profileStatus)
+      .then(data => {
+        if (!data.resultCode) {
+          dispatch(setProfileStatus(profileStatus));
+        }
       })
   }
 }
