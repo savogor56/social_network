@@ -17,11 +17,7 @@ const Posts = (props) => {
   
   return(
     <div className={classes.posts}>
-      <FormAddsPost 
-        addPost={props.addPost} 
-        onPostChange={props.onPostChange}
-        newPostText={props.newPostText}         
-      />
+      <FormAddsPost addPost={props.addPost} />
       {postsElements}
     </div>   
   )

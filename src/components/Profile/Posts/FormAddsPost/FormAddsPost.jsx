@@ -1,25 +1,29 @@
 import React from 'react';
 import classes from './FormAddsPost.module.css'
+import { Form, Field } from 'react-final-form';
 
-const FormAddsPost = (props) => {  
-  let newPostElement = React.createRef();
-
-  let updateNewPostText = () => {
-    let text = newPostElement.current.value;
-    props.onPostChange(text);
+const FormAddPost = (props) => {
+  const onSubmit = (formData) => {
+    if (formData.postMessage) {
+      props.addPost(formData.postMessage);
+    }
   }
   
   return (
-    <div className={`${classes.form} wrap`}>
-      <textarea 
-        ref={newPostElement} 
-        placeholder="Введите текст вашего сообщения" 
-        value={props.newPostText}
-        onChange={updateNewPostText}
-      />
-      <button onClick={props.addPost}>Отправить</button>
-    </div>
+    <Form onSubmit={onSubmit} render={({handleSubmit, form}) => (
+      <form 
+        className={`${classes.form} wrap`} 
+        onSubmit={async (event) => {
+          await handleSubmit(event);
+          form.reset();
+        }} 
+      >
+        <Field name="postMessage" component="textarea" placeholder="Введите текст вашего сообщения" />
+        <button onSubmit={form.reset} >Send</button>
+      </form>
+      )}       
+    />
   )
 }
 
-export default FormAddsPost;
+export default FormAddPost;

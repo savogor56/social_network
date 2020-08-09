@@ -43,18 +43,27 @@ export const setUserData = (userData, resultCode, messages) => ({
 
 export const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
-  isFetching: !isFetching
+  isFetching
 })
 
 export const getCurrentUserData = () => {
   return (dispatch) => {
-    dispatch(toggleIsFetching(false));    
+    dispatch(toggleIsFetching(true));    
     authAPI.getCurrentUserData()
       .then(curUserData => {
-        dispatch(toggleIsFetching(true));
+        dispatch(toggleIsFetching(false));
         let { data, resultCode, messages } = curUserData;
         dispatch(setUserData(data, resultCode, messages));
         getProfile(data.id);
       })
   }
 }
+
+export const authLogin = (email, password, rememberMe) => (dispatch => {
+  dispatch(toggleIsFetching(true));
+  authAPI.authLogin(email, password, rememberMe)
+    .then(data => {
+      dispatch(toggleIsFetching(false));
+      console.log(data);
+    })
+}) 

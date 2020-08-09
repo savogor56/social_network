@@ -6,7 +6,7 @@ import { FormAddMessage } from './FormAddMessage/FormAddMessage';
 
 
 const Dialogs = (props) => {
-  const dialogItems = props.dialogsPage.dialogsData.map((dialog) => {
+  const dialogItems = props.dialogsData.map((dialog) => {
     return(
     <DialogItem 
       id={dialog.id} 
@@ -17,7 +17,7 @@ const Dialogs = (props) => {
     )
   });
 
-  const messages = props.dialogsPage.messagesData.map((message) => {
+  const messages = props.messagesData.map((message) => {
     return(
       <Message 
         id={message.id}
@@ -36,10 +36,8 @@ const Dialogs = (props) => {
         {messages}        
       </div>
       <div className="form_add">
-        <FormAddMessage 
-          newMessage={props.dialogsPage.newMessage} 
-          sendMessage={props.sendMessage}  
-          onMessageChange={props.onMessageChange}
+        <FormAddMessage
+          sendMessage={props.sendMessage}
         />
       </div>      
     </main>
