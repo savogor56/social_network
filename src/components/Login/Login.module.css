@@ -6,11 +6,13 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 40%;
   }
 
 .login_form button {
+  margin: 0 auto;
   font-size: 1.1rem;
+  width: 40%;
 }
 
 .login_form input {
@@ -23,4 +25,17 @@
 
 .title {
   text-align: center;
+}
+
+.input_wrap {
+  display: flex;
+  padding: 5px;
+}
+
+.input_wrap input{
+  width: 200px;
+}
+.input_wrap label{
+  width: 100px;
+  margin-right: 5px;
 }

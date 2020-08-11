@@ -6,3 +6,7 @@
   width: 90%;
 }
 
+.input_wrap {
+  display: flex;
+  width: 100%;
+}

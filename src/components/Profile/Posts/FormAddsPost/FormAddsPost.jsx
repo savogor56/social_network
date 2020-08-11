@@ -1,6 +1,8 @@
 import React from 'react';
 import classes from './FormAddsPost.module.css'
 import { Form, Field } from 'react-final-form';
+import { required, composeValidators, maxLength } from '../../../../utils/validators/validators';
+import { Textarea } from '../../../common/FormsControl/FormsControl';
 
 const FormAddPost = (props) => {
   const onSubmit = (formData) => {
@@ -10,7 +12,7 @@ const FormAddPost = (props) => {
   }
   
   return (
-    <Form onSubmit={onSubmit} render={({handleSubmit, form}) => (
+    <Form onSubmit={onSubmit} render={({handleSubmit, form, submitting}) => (
       <form 
         className={`${classes.form} wrap`} 
         onSubmit={async (event) => {
@@ -18,8 +20,14 @@ const FormAddPost = (props) => {
           form.reset();
         }} 
       >
-        <Field name="postMessage" component="textarea" placeholder="Введите текст вашего сообщения" />
-        <button onSubmit={form.reset} >Send</button>
+        <Field 
+          name="postMessage" 
+          component={Textarea} 
+          placeholder="Введите текст вашего сообщения" 
+          validate={composeValidators(required, maxLength(20))}
+          className={classes.input_wrap}
+        />
+        <button onSubmit={form.reset} disabled={submitting}>Send</button>
       </form>
       )}       
     />

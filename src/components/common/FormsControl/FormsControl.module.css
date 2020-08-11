@@ -1,0 +1,17 @@
+.form_control {
+    border-radius: 6px;
+}
+
+.form_control input,
+.form_control textarea {
+    border-radius: 6px;
+}
+
+.form_control.error input, 
+.form_control.error textarea {
+    border: 1px solid red;
+}
+
+.form_control.error span {
+    color: red;
+}
