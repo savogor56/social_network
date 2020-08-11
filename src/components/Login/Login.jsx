@@ -3,13 +3,19 @@ import classes from './Login.module.css';
 import { Form, Field } from 'react-final-form';
 import { required, composeValidators, minLength } from '../../utils/validators/validators';
 import { Input } from '../common/FormsControl/FormsControl';
+import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
     const onSubmit = (formData) => {
         if (formData) {
             const {email, password, rememberMe} = formData;
+            console.log(formData);
             props.authLogin(email, password, rememberMe)
         }        
+    }
+
+    if (props.isAuth) {
+        return <Redirect to={"/profile"} />
     }
 
     return (
@@ -36,7 +42,7 @@ const LoginForm = (props) => {
                     }}
                 >
                     <Field
-                        name="login"
+                        name="email"
                         placeholder="E-mail"
                         component={Input}
                         type="text"

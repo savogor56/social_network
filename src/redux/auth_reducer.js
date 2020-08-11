@@ -33,12 +33,12 @@ export const authReducer = (state = initialState, action) => {
 }
 
 
-export const setUserData = (userData, resultCode, messages) => ({
+export const setUserData = (userData, resultCode, messages, isAuth) => ({
   type: SET_USER_DATA,
   userData,
   resultCode,
   messages,
-  isAuth: !resultCode
+  isAuth
 })
 
 export const toggleIsFetching = (isFetching) => ({
@@ -53,8 +53,10 @@ export const getCurrentUserData = () => {
       .then(curUserData => {
         dispatch(toggleIsFetching(false));
         let { data, resultCode, messages } = curUserData;
-        dispatch(setUserData(data, resultCode, messages));
+        if (resultCode === 0) {
+        dispatch(setUserData(data, resultCode, messages, true));
         getProfile(data.id);
+      }
       })
   }
 }
@@ -64,6 +66,18 @@ export const authLogin = (email, password, rememberMe) => (dispatch => {
   authAPI.authLogin(email, password, rememberMe)
     .then(data => {
       dispatch(toggleIsFetching(false));
+      dispatch(getCurrentUserData())
       console.log(data);
     })
-}) 
+})
+
+export const authLogOut = () => dispatch => {
+  dispatch(toggleIsFetching(true));
+  authAPI.LogOut()
+    .then(response => {
+      dispatch(toggleIsFetching(false));
+      if (response.resultCode === 0) {
+        dispatch(setUserData(null, null, null, false));
+      }
+    })
+}
