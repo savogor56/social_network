@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import { getCurrentUserData } from '../../redux/auth_reducer';
+import { getCurrentUserData, authLogOut } from '../../redux/auth_reducer';
 import { getProfile } from '../../redux/profile_reducer';
 
 
@@ -28,7 +28,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getProfile,
-  getCurrentUserData
+  getCurrentUserData,
+  authLogOut
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer);

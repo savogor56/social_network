@@ -61,6 +61,7 @@ export const authAPI = {
   },
   LogOut () {
     return instance
-      .delete('auth/login');
+      .delete('auth/login')
+      .then(response => response.data);
   }
 }

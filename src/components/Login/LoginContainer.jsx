@@ -4,6 +4,7 @@ import Login from './Login';
 import { authLogin } from './../../redux/auth_reducer';
 
 class LoginContainer extends Component {
+  
   render() {
     return (
       <Login {...this.props} />
@@ -12,7 +13,8 @@ class LoginContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuth: state.auth.isAuth
+  isAuth: state.auth.isAuth,
+  error: state.auth.error
 })
 
 const mapDispatchToProps = {

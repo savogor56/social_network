@@ -3,13 +3,15 @@ import { getProfile } from "./profile_reducer";
 
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const SET_USER_DATA = 'SET_USER_DATA';
+const SET_ERROR = 'SET_ERROR';
 
 let initialState = {
     resultCode: null,
     messages: null,
     data: null,
     isFetching: false,
-    isAuth: false
+    isAuth: false,
+    error: null
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -27,13 +29,18 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isFetching: action.isFetching
       }
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.error
+      }
     default:
       return state
   }  
 }
 
 
-export const setUserData = (userData, resultCode, messages, isAuth) => ({
+const setUserData = (userData, resultCode, messages, isAuth) => ({
   type: SET_USER_DATA,
   userData,
   resultCode,
@@ -41,9 +48,14 @@ export const setUserData = (userData, resultCode, messages, isAuth) => ({
   isAuth
 })
 
-export const toggleIsFetching = (isFetching) => ({
+const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching
+})
+
+const setError = (error) => ({
+  type: SET_ERROR,
+  error
 })
 
 export const getCurrentUserData = () => {
@@ -65,19 +77,25 @@ export const authLogin = (email, password, rememberMe) => (dispatch => {
   dispatch(toggleIsFetching(true));
   authAPI.authLogin(email, password, rememberMe)
     .then(data => {
+      dispatch(setError(null));
       dispatch(toggleIsFetching(false));
-      dispatch(getCurrentUserData())
-      console.log(data);
+      if (data.resultCode === 0) {
+        dispatch(getCurrentUserData())
+        console.log(data.data);
+      } else {
+        dispatch(setError(data.messages[0]))
+      }
+      
     })
 })
 
 export const authLogOut = () => dispatch => {
   dispatch(toggleIsFetching(true));
   authAPI.LogOut()
-    .then(response => {
+    .then(data => {
       dispatch(toggleIsFetching(false));
-      if (response.resultCode === 0) {
+      if(data.resultCode === 0) {
         dispatch(setUserData(null, null, null, false));
-      }
+      }      
     })
 }

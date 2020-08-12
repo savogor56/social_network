@@ -2,11 +2,11 @@ import React from 'react';
 import classes from './FormsControl.module.css';
 
 const FormControl = ({input, meta, ...props}) => {
-    const hasError = meta.error && meta.touched;
+    const hasError = (meta.error || meta.submitError) && meta.touched;
     return (
         <div className={`${props.className} ${classes.form_control} ${hasError && classes.error}`}>
             {props.children}
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{meta.error || meta.submitError}</span>}
         </div> 
     )
 }

@@ -20,6 +20,7 @@ const Header = (props) => {
             <div className={classes.user_info}>
               <span>{props.userData.login}</span>
               {props.userProfile && <img src={props.userProfile.photos.small ? props.userProfile.photos.small : defaultAvatar} alt=""/>}
+              <button onClick={props.authLogOut} >Log Out</button>
             </div> :
             <NavLink to='/login'>LogIn</NavLink>
           }          

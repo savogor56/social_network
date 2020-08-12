@@ -39,3 +39,7 @@
   width: 100px;
   margin-right: 5px;
 }
+
+.error {
+  color: red;
+}
