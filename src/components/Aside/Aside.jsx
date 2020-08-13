@@ -2,9 +2,10 @@ import React from 'react';
 import classes from './Aside.module.css';
 import { Friends } from './Friends/Friends';
 import MenuItem from './MenuItem/MenuItem';
+import { connect } from 'react-redux';
 
-export const Aside = (props) => {
-  let menuElements =     props.state.menu.map((menuElem) => {
+const Aside = (props) => {
+  let menuElements = props.menu.map((menuElem) => {
     return(
       <MenuItem key={menuElem.id} menuElem={menuElem} />
     )
@@ -14,7 +15,22 @@ export const Aside = (props) => {
       <div className={classes.menu}>
       {menuElements}
       </div>      
-      <Friends friends={props.state.friends} />
+      <Friends friends={props.friends} />
     </aside>
   ) 
-};  
+};
+
+class AsideContainer extends React.Component {
+  render() {
+    return (
+      <Aside {...this.props} />
+    )
+  }
+}
+
+const mapStateToProps = (state) => ({
+  menu: state.aside.menu,
+  friends: state.aside.friends
+})
+
+export default connect(mapStateToProps)(AsideContainer)
