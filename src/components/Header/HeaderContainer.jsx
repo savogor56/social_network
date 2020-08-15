@@ -1,17 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import { getCurrentUserData, authLogOut } from '../../redux/auth_reducer';
+import { authLogOut } from '../../redux/auth_reducer';
 import { getProfile } from '../../redux/profile_reducer';
 
 
 class HeaderContainer extends React.Component {
-  componentDidMount() {
-    if (!this.props.userData) {
-      this.props.getCurrentUserData();
-    }
-  }
-
   render() {
     return(
       <Header {...this.props} />
@@ -28,7 +22,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getProfile,
-  getCurrentUserData,
   authLogOut
 }
 
