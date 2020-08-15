@@ -61,7 +61,7 @@ const setError = (error) => ({
 export const getCurrentUserData = () => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));    
-    authAPI.getCurrentUserData()
+  return authAPI.getCurrentUserData()
       .then(curUserData => {
         dispatch(toggleIsFetching(false));
         let { data, resultCode, messages } = curUserData;
