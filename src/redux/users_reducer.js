@@ -10,7 +10,7 @@ let initialState = {
     users: [],
     totalUsersCount: 1,
     pageSize: 5,
-    page: 1,
+    currentPage: 1,
     isFetching: false,
     followingInProgress: []
   }
@@ -39,7 +39,7 @@ export const usersReducer = (state = initialState, action) => {
     case SET_CURRENT_PAGE:
       return {
         ...state,
-        page: action.page
+        currentPage: action.page
       } 
     case TOGGLE_IS_FETCHING:
       return{
@@ -96,11 +96,11 @@ export const toggleIsFollowing = (isFollowing, userId) => {
   }
 }
 
-export const requestUsers = (page, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
   return (dispatch) => {
-    dispatch(setCurrentPage(page));
+    dispatch(setCurrentPage(currentPage));
     dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(page, pageSize)
+    usersAPI.getUsers(currentPage, pageSize)
       .then((data) => {
         dispatch(toggleIsFetching(false))
         const users = data.items;
