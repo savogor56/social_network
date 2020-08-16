@@ -4,10 +4,13 @@ import { useState } from 'react';
 
 
 const UserStatusHook = (props) => {
-  let state = useState(false);
-  let editMode = state[0];
-  let setEditMode = state[1];
-  !editMode && setEditMode(true);
+  let [editMode, setEditMode] = useState(false);
+  let [status, setStatus] = useState(props.profileStatus);
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  }
+  
   return (
     <div className={classes.status}>
       {
@@ -15,8 +18,9 @@ const UserStatusHook = (props) => {
         <input 
           autoFocus={true}
           type="text"
+          onBlur={toggleEditMode}
         /> :
-        <span  >
+        <span onDoubleClick={toggleEditMode} >
         {props.profileStatus ? props.profileStatus : 'status'}
         </span>
       }   
