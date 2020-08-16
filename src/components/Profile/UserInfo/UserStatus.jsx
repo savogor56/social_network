@@ -1,56 +1,48 @@
-import React from 'react';
-import classes from './UserInfo.module.css'
+import React, { useEffect, useState } from 'react';
+import classes from './UserInfo.module.css';
 
 
-class UserStatus extends React.Component {
-  state = {
-    editMode: false,
-    status: this.props.profileStatus
+const UserStatus = (props) => {
+  let [editMode, setEditMode] = useState(false);
+  let [status, setStatus] = useState(props.profileStatus);
+
+  useEffect(() => {
+    setStatus(props.profileStatus);
+  }, [props.profileStatus]);
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
   }
 
-  toggleEditMode = () => {
-    this.setState({
-      editMode: !this.state.editMode
-    })
-  }
-
-  setStatus = () => {
-    this.toggleEditMode();
-    this.props.putProfileStatus(this.state.status);
-  }
-
-  onChangeStatus = (e) => {
-    let status = e.target.value;
-    this.setState({
-      status
-    })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.profileStatus !== this.props.profileStatus) {
-      this.setState({
-      status: this.props.profileStatus
-    })
+  const sendStatus = () => {
+    toggleEditMode();
+    if (status !== props.profileStatus){
+      props.putProfileStatus(status);
     }
   }
 
-  render() {
-    return (
-      <div className={classes.status}>
-        {
-          this.state.editMode ?
-          <input 
-            autoFocus={true} 
-            onBlur={this.setStatus} 
-            onChange={this.onChangeStatus} 
-            type="text" 
-            value={this.state.status}
-          /> :
-          <span onDoubleClick={this.toggleEditMode} >{this.props.profileStatus ? this.props.profileStatus : 'status'}</span>
-        }   
-      </div>
-    );
+  const onChangeStatus = (e) => {
+    const status = e.target.value;
+    setStatus(status)
   }
+  
+  return (
+    <div className={classes.status}>
+      {
+        editMode ?
+        <input 
+          autoFocus={true}
+          type="text"
+          onBlur={sendStatus}
+          onChange={onChangeStatus}
+          value={status}
+        /> :
+        <span onDoubleClick={toggleEditMode} >
+        {props.profileStatus ? props.profileStatus : 'status'}
+        </span>
+      }   
+    </div>
+  );
 }
 
 export default UserStatus;

@@ -4,7 +4,6 @@ import Preloader from '../../common/Preloader/Preloader';
 import findWorkImg from '../../../assets/img/find_work.jpg';
 import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
 import UserStatus from './UserStatus';
-import UserStatusHook from './UserStatusHook';
 
 
 const UserInfo = (props) => {
@@ -21,7 +20,7 @@ const UserInfo = (props) => {
           <img src={props.userProfile.photos.large ? props.userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
           <div className={classes.about}>{props.userProfile.aboutMe}</div>
-          <UserStatusHook
+          <UserStatus
             profileStatus={props.profileStatus} 
             putProfileStatus={props.putProfileStatus} 
           />
