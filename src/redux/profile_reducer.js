@@ -5,6 +5,7 @@ const update_new_post_text = "update-new-post-text";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
+const DELETE_POST = "DELETE_POST";
 
 let initialState = {
   postsData: [
@@ -43,6 +44,11 @@ export const profileReducer = (state = initialState, action) => {
         postsData: [...state.postsData, newPost],
         newPostText: ""
       };
+    case DELETE_POST:
+      return {
+        ...state,
+        postsData: state.postsData.filter((item) => item.id !== action.id)
+      };
     case update_new_post_text: 
       return {
         ...state,
@@ -72,6 +78,13 @@ export const addPost = (postMessage) => {
   return {
     type: add_post,
     postMessage
+  }
+};
+
+export const deletePost = (id) => {
+  return {
+    type: DELETE_POST,
+    id
   }
 };
 
