@@ -106,22 +106,21 @@ export const requestUsers = (currentPage, pageSize) => async dispatch => {
   dispatch(setUsers(users, totalUsersCount));
 }
 
-export const followUnfollow = (followed, userId) => async dispatch => {
-  // let apiMethod = 
-}
-
-export const follow = (followed, userId) => async dispatch => {  
-  const data = await usersAPI.follow(userId); 
+const followUnfollowFlow = async (dispatch, followed, userId, apiMethod) => {
+  const data = await apiMethod(userId);
   dispatch(toggleIsFollowing(false, userId));
   if (data.resultCode === 0) {
     dispatch(toggleFollow(followed, userId));        
   }
 }
 
-export const unfollow = (followed, userId) => async dispatch => {  
-  const data = await usersAPI.unfollow(userId);
-  dispatch(toggleIsFollowing(false, userId));
-  if (data.resultCode === 0) {
-    dispatch(toggleFollow(followed, userId));
-  }
+export const follow = (followed, userId) => dispatch => {
+  const apiMethod = usersAPI.follow.bind(this);
+  followUnfollowFlow(dispatch, followed, userId, apiMethod);
+  
+}
+
+export const unfollow = (followed, userId) => dispatch => {
+  const apiMethod = usersAPI.unfollow.bind(this);
+  followUnfollowFlow(dispatch, followed, userId, apiMethod);
 }

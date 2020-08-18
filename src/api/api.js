@@ -18,7 +18,7 @@ export const usersAPI = {
     return response.data;
   },
   async unfollow(userId) {
-    const response = instance.delete(`follow/${userId}`);
+    const response = await instance.delete(`follow/${userId}`);
     return response.data;
   }
 }
