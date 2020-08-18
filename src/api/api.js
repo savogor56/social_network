@@ -9,46 +9,38 @@ const instance = axios.create({
 });
 
 export const usersAPI = {
-  getUsers (currentPage = 1, pageSize = 5) {
-    return instance
-          .get(`users?count=${pageSize}&page=${currentPage}`)
-          .then(response => response.data)
+  async getUsers (currentPage = 1, pageSize = 5) {
+    const response = await instance.get(`users?count=${pageSize}&page=${currentPage}`);
+    return response.data;
   },
-  follow(userId) {
-    return instance
-      .post(`follow/${userId}`)
-      .then(response => response.data)
+  async follow(userId) {
+    const response = await instance.post(`follow/${userId}`);
+    return response.data;
   },
-  unfollow(userId) {
-    return instance
-      .delete(`follow/${userId}`)
-      .then(response => response.data)
+  async unfollow(userId) {
+    const response = instance.delete(`follow/${userId}`);
+    return response.data;
   }
 }
 
 export const profileAPI = {
-  getProfile (userId = 2) {
-    return instance
-      .get(`profile/${userId}`)
-      .then(response => response.data)
+  async getProfile (userId = 2) {
+    const response = await instance.get(`profile/${userId}`);
+    return response.data
   },  
-  getProfileStatus (userId) {
-    return instance
-      .get(`profile/status/${userId}`)
-      .then(response => response.data)
+  async getProfileStatus (userId) {
+    const response = await instance.get(`profile/status/${userId}`);
+    return response.data;
   },
-  putProfileStatus (profileStatus) {
-    return instance
-      .put('profile/status', {status: profileStatus})
-      .then(response => response.data)
+  async putProfileStatus (profileStatus) {
+    const response = await instance.put('profile/status', {status: profileStatus});
+    return response.data;
   }
 }
 
 export const authAPI = {
   getCurrentUserData () {
-    return instance
-      .get('auth/me')
-      .then(response => response.data)
+    return instance.get('auth/me');    
   },
   authLogin (email, password, rememberMe) {
     return instance
@@ -57,11 +49,8 @@ export const authAPI = {
         password,
         rememberMe
       })
-      .then(response => response.data);
   },
   LogOut () {
-    return instance
-      .delete('auth/login')
-      .then(response => response.data);
+    return instance.delete('auth/login')
   }
 }

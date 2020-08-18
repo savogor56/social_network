@@ -23,11 +23,8 @@ export const toggleInitialised = (initialised) => ({
   initialised
 })
 
-export const initialisedApp = () => (dispatch) => {
-  dispatch(getCurrentUserData())
-    .then(() => {
-      dispatch(toggleInitialised(true));
-    })
-
+export const initialisedApp = () => async dispatch => {  
+  await dispatch(getCurrentUserData());
+  dispatch(toggleInitialised(true));
 }
 

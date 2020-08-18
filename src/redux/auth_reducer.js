@@ -1,9 +1,9 @@
 import { authAPI } from "../api/api";
 import { getProfile } from "./profile_reducer";
 
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const SET_USER_DATA = 'SET_USER_DATA';
-const SET_ERROR = 'SET_ERROR';
+const TOGGLE_IS_FETCHING = 'social_network/auth/TOGGLE_IS_FETCHING';
+const SET_USER_DATA = 'social_network/auth/SET_USER_DATA';
+const SET_ERROR = 'social_network/auth/SET_ERROR';
 
 let initialState = {
     resultCode: null,
@@ -58,44 +58,35 @@ const setError = (error) => ({
   error
 })
 
-export const getCurrentUserData = () => {
-  return (dispatch) => {
-    dispatch(toggleIsFetching(true));    
-  return authAPI.getCurrentUserData()
-      .then(curUserData => {
-        dispatch(toggleIsFetching(false));
-        let { data, resultCode, messages } = curUserData;
-        if (resultCode === 0) {
-        dispatch(setUserData(data, resultCode, messages, true));
-        getProfile(data.id);
-      }
-      })
-  }
+export const getCurrentUserData = () => async dispatch => {
+  dispatch(toggleIsFetching(true));    
+  const response = await authAPI.getCurrentUserData();      
+  dispatch(toggleIsFetching(false));
+  const { data, resultCode, messages } = response.data;
+  if (resultCode === 0) {
+    dispatch(setUserData(data, resultCode, messages, true));
+    getProfile(data.id);
+  }  
 }
 
-export const authLogin = (email, password, rememberMe) => (dispatch => {
+export const authLogin = (email, password, rememberMe) => async dispatch => {
   dispatch(toggleIsFetching(true));
-  authAPI.authLogin(email, password, rememberMe)
-    .then(data => {
-      dispatch(setError(null));
-      dispatch(toggleIsFetching(false));
-      if (data.resultCode === 0) {
-        dispatch(getCurrentUserData())
-        console.log(data.data);
-      } else {
-        dispatch(setError(data.messages[0]))
-      }
-      
-    })
-})
+  const response = await authAPI.authLogin(email, password, rememberMe);
+  const {resultCode, messages } = response.data;
+    dispatch(setError(null));
+    dispatch(toggleIsFetching(false));
+  if (resultCode === 0) {
+      dispatch(getCurrentUserData());
+    } else {
+      dispatch(setError(messages[0]))
+    }      
+}
 
-export const authLogOut = () => dispatch => {
+export const authLogOut = () => async dispatch => {
   dispatch(toggleIsFetching(true));
-  authAPI.LogOut()
-    .then(data => {
-      dispatch(toggleIsFetching(false));
-      if(data.resultCode === 0) {
-        dispatch(setUserData(null, null, null, false));
-      }      
-    })
+  let response = await authAPI.LogOut();
+  dispatch(toggleIsFetching(false));
+  if (response.data.resultCode === 0) {
+    dispatch(setUserData(null, null, null, false));
+  }      
 }

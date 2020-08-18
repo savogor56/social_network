@@ -1,11 +1,11 @@
 import { profileAPI } from "../api/api";
 
-const add_post = "add-post";
-const update_new_post_text = "update-new-post-text";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
-const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
-const DELETE_POST = "DELETE_POST";
+const ADD_POST = "social_network/profile/ADD_POST";
+const UPDATE_NEW_POST_TEXT = "social_network/profile/UPDATE_NEW_POST_TEXT";
+const SET_USER_PROFILE = "social_network/profile/SET_USER_PROFILE";
+const TOGGLE_IS_FETCHING = "social_network/profile/TOGGLE_IS_FETCHING";
+const SET_PROFILE_STATUS = "social_network/profile/SET_PROFILE_STATUS";
+const DELETE_POST = "social_network/profile/DELETE_POST";
 
 let initialState = {
   postsData: [
@@ -32,7 +32,7 @@ let initialState = {
 
 export const profileReducer = (state = initialState, action) => {
   switch(action.type) {       
-    case add_post:
+    case ADD_POST:
       let newPost = {
         id: state.postsData[state.postsData.length - 1].id + 1,
         message: action.postMessage,
@@ -49,7 +49,7 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         postsData: state.postsData.filter((item) => item.id !== action.id)
       };
-    case update_new_post_text: 
+    case UPDATE_NEW_POST_TEXT: 
       return {
         ...state,
         newPostText: action.newText
@@ -76,7 +76,7 @@ export const profileReducer = (state = initialState, action) => {
 
 export const addPost = (postMessage) => {
   return {
-    type: add_post,
+    type: ADD_POST,
     postMessage
   }
 };
@@ -90,7 +90,7 @@ export const deletePost = (id) => {
 
 export const updateNewPostText = (text) => {
   return {
-    type: update_new_post_text,
+    type: UPDATE_NEW_POST_TEXT,
     newText: text
   }
 };
@@ -110,33 +110,21 @@ export const setProfileStatus = (profileStatus) => ({
   profileStatus
 })
 
-export const getProfile = (userId) => {
-  return (dispatch) => {
-    dispatch(toggleIsFetching(true));
-    profileAPI.getProfile(userId)
-      .then(data => {
-        dispatch(toggleIsFetching(false));
-        dispatch(setUserProfile(data));
-      })
-  }
+export const getProfile = userId => async dispatch => {
+  dispatch(toggleIsFetching(true));
+  const data = await profileAPI.getProfile(userId)
+  dispatch(toggleIsFetching(false));
+  dispatch(setUserProfile(data));
 }
 
-export const getProfileStatus = (userId) => {
-  return dispatch => {
-    profileAPI.getProfileStatus(userId)
-      .then(data => {
-        dispatch(setProfileStatus(data));
-      })
-  }
+export const getProfileStatus = (userId) => async dispatch => {
+  const data = await profileAPI.getProfileStatus(userId);
+  dispatch(setProfileStatus(data));
 }
 
-export const putProfileStatus = (profileStatus) => {
-  return dispatch => {
-    profileAPI.putProfileStatus(profileStatus)
-      .then(data => {
-        if (!data.resultCode) {
-          dispatch(setProfileStatus(profileStatus));
-        }
-      })
+export const putProfileStatus = (profileStatus) => async dispatch => {
+  let data = await profileAPI.putProfileStatus(profileStatus)
+  if (!data.resultCode) {
+    dispatch(setProfileStatus(profileStatus));
   }
 }

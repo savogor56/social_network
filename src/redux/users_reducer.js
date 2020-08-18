@@ -1,10 +1,10 @@
 import { usersAPI } from "../api/api";
 
-const FOLLOW = 'FOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_IS_FOLLOWING = 'TOGGLE_IS_FOLLOWING';
+const FOLLOW = 'social_network/users/FOLLOW';
+const SET_USERS = 'social_network/users/SET_USERS';
+const SET_CURRENT_PAGE = 'social_network/users/SET_CURRENT_PAGE';
+const TOGGLE_IS_FETCHING = 'social_network/users/TOGGLE_IS_FETCHING';
+const TOGGLE_IS_FOLLOWING = 'social_network/users/TOGGLE_IS_FOLLOWING';
 
 let initialState = {
     users: [],
@@ -96,39 +96,32 @@ export const toggleIsFollowing = (isFollowing, userId) => {
   }
 }
 
-export const requestUsers = (currentPage, pageSize) => {
-  return (dispatch) => {
-    dispatch(setCurrentPage(currentPage));
-    dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize)
-      .then((data) => {
-        dispatch(toggleIsFetching(false))
-        const users = data.items;
-        const totalUsersCount = Math.ceil(data.totalCount / 50);
-        dispatch(setUsers(users, totalUsersCount));
-      })
+export const requestUsers = (currentPage, pageSize) => async dispatch => {
+  dispatch(setCurrentPage(currentPage));
+  dispatch(toggleIsFetching(true));
+  const data = await usersAPI.getUsers(currentPage, pageSize);
+  dispatch(toggleIsFetching(false));
+  const users = data.items;
+  const totalUsersCount = Math.ceil(data.totalCount / 50);
+  dispatch(setUsers(users, totalUsersCount));
+}
+
+export const followUnfollow = (followed, userId) => async dispatch => {
+  // let apiMethod = 
+}
+
+export const follow = (followed, userId) => async dispatch => {  
+  const data = await usersAPI.follow(userId); 
+  dispatch(toggleIsFollowing(false, userId));
+  if (data.resultCode === 0) {
+    dispatch(toggleFollow(followed, userId));        
   }
 }
 
-export const follow = (followed, userId) => {
-  return (dispatch) => {
-    usersAPI.follow(userId)
-      .then(data => {
-        dispatch(toggleIsFollowing(false, userId))
-        if (data.resultCode === 0) {
-          dispatch(toggleFollow(followed, userId));        }
-      })
-  }
-}
-
-export const unfollow = (followed, userId) => {
-  return (dispatch) => {
-    usersAPI.unfollow(userId)
-      .then(data => {
-        dispatch(toggleIsFollowing(false, userId))
-        if (data.resultCode === 0) {
-          dispatch(toggleFollow(followed, userId));
-        }
-      })
+export const unfollow = (followed, userId) => async dispatch => {  
+  const data = await usersAPI.unfollow(userId);
+  dispatch(toggleIsFollowing(false, userId));
+  if (data.resultCode === 0) {
+    dispatch(toggleFollow(followed, userId));
   }
 }
