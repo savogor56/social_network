@@ -4,10 +4,10 @@ import { Form, Field } from 'react-final-form';
 import { required, composeValidators, maxLength } from '../../../../utils/validators/validators';
 import { Textarea } from '../../../common/FormsControl/FormsControl';
 
-const FormAddPost = (props) => {
+const FormAddPost = ({addPost}) => {
   const onSubmit = (formData) => {
     if (formData.postMessage) {
-      props.addPost(formData.postMessage);
+      addPost(formData.postMessage);
     }
   }
   

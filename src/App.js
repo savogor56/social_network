@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Aside from './components/Aside/Aside';
 import { Route } from 'react-router-dom';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
@@ -10,6 +9,7 @@ import LoginContainer from './components/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { initialisedApp } from './redux/app_reducer';
 import Preloader from './components/common/Preloader/Preloader';
+import AsideContainer from './components/Aside/AsideContainer';
 
 
 
@@ -26,7 +26,7 @@ class App extends React.Component {
       <div className="background blur">
         <div className="app_wrapper">
           <HeaderContainer />
-          <Aside />
+          <AsideContainer />
           <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
           <Route exact path="/dialogs" render={() => <DialogsContainer />} />
           <Route exact path="/users" render={() => <UsersContainer />} />

@@ -2,10 +2,10 @@ import React from 'react';
 import classes from './MenuItem.module.css';
 import { NavLink } from 'react-router-dom';
 
-const MenuItem = (props) => {
+const MenuItem = ({menuElem}) => {
   return(
       <div className={`${classes.item}`}>
-        <NavLink to={props.menuElem.link} activeClassName={classes.active}>{props.menuElem.name}</NavLink>
+        <NavLink to={menuElem.link} activeClassName={classes.active}>{menuElem.name}</NavLink>
       </div>
   );
 }

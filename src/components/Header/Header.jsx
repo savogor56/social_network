@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
 import defaultAvatar from '../../assets/img/default_avatar.jpg';
 
-const Header = (props) => {
+const Header = ({isFetching, isAuth, userProfile, userData, authLogOut}) => {
   return(
     <header className={`${classes.header} wrap`}>
       <div className={classes.info_block}>
@@ -13,14 +13,14 @@ const Header = (props) => {
         <div className={classes.title}>Social Network</div>
       </div>
       {        
-        props.isFetching ? <Preloader /> :
+        isFetching ? <Preloader /> :
         <div className={classes.login_block}>
           {
-            props.isAuth ?
+            isAuth ?
             <div className={classes.user_info}>
-              <span>{props.userData.login}</span>
-              {props.userProfile && <img src={props.userProfile.photos.small ? props.userProfile.photos.small : defaultAvatar} alt=""/>}
-              <button onClick={props.authLogOut} >Log Out</button>
+              <span>{userData.login}</span>
+              {userProfile && <img src={userProfile.photos.small ? userProfile.photos.small : defaultAvatar} alt=""/>}
+              <button onClick={authLogOut} >Log Out</button>
             </div> :
             <NavLink to='/login'>LogIn</NavLink>
           }          

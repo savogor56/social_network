@@ -3,8 +3,8 @@ import classes from './Posts.module.css';
 import Post from './Post/Post';
 import FormAddsPost from './FormAddsPost/FormAddsPost';
 
-const Posts = (props) => {
-  let postsElements = props.postsData.map( post => {
+const Posts = ({postsData, addPost}) => {
+  let postsElements = postsData.map( post => {
     return(
       <Post
         key={post.id}
@@ -17,7 +17,7 @@ const Posts = (props) => {
   
   return(
     <div className={classes.posts}>
-      <FormAddsPost addPost={props.addPost} />
+      <FormAddsPost addPost={addPost} />
       {postsElements}
     </div>   
   )

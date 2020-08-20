@@ -3,16 +3,6 @@
   flex-direction: column;
 }
 
-.pagination {
-  display: flex;
-  justify-content: center;
-}
 
-.selected {
-  font-weight: bold;
-  flex-grow: 0.01;
-  background-color: red;
-  color: aqua;
-}
 
 

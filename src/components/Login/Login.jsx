@@ -53,7 +53,7 @@ const LoginForm = (props) => {
                         component={Input}
                         type="text"
                         className={classes.input_wrap}
-                        validate={composeValidators(required)}
+                        validate={required}
                     />
                     <Field 
                         name="password" 

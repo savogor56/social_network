@@ -4,10 +4,10 @@ import { Form, Field } from 'react-final-form';
 import { required, composeValidators, maxLength } from '../../../utils/validators/validators';
 import { Textarea } from '../../common/FormsControl/FormsControl';
 
-export const FormAddMessage = (props) => {
+export const FormAddMessage = ({sendMessage}) => {
   const onSubmit = (formData) => {
     if(formData.newMessage) {
-      props.sendMessage(formData.newMessage)
+      sendMessage(formData.newMessage)
     }
   }
 

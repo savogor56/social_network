@@ -5,8 +5,8 @@ import DialogItem from './DIalogItem/DialogItem';
 import { FormAddMessage } from './FormAddMessage/FormAddMessage';
 
 
-const Dialogs = (props) => {
-  const dialogItems = props.dialogsData.map((dialog) => {
+const Dialogs = ({dialogsData, messagesData, sendMessage}) => {
+  const dialogItems = dialogsData.map((dialog) => {
     return(
     <DialogItem 
       id={dialog.id} 
@@ -17,7 +17,7 @@ const Dialogs = (props) => {
     )
   });
 
-  const messages = props.messagesData.map((message) => {
+  const messages = messagesData.map((message) => {
     return(
       <Message 
         id={message.id}
@@ -37,7 +37,7 @@ const Dialogs = (props) => {
       </div>
       <div className="form_add">
         <FormAddMessage
-          sendMessage={props.sendMessage}
+          sendMessage={sendMessage}
         />
       </div>      
     </main>

@@ -8,13 +8,15 @@ import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getIsFetchin
 
 class UsersContainer extends React.Component {
   componentDidMount() {    
-    if(this.props.users.length === 0) {
-      this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+    const {users, requestUsers, currentPage, pageSize} = this.props;
+    if(users.length === 0) {
+      requestUsers(currentPage, pageSize);
     }
   }
 
   changePage = (pageNumber) => {
-    this.props.requestUsers(pageNumber, this.props.pageSize);
+    const { pageSize, requestUsers } = this.props;
+    requestUsers(pageNumber, pageSize);
   }
   
   render() {

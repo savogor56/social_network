@@ -3,33 +3,33 @@ import classes from './User.module.css';
 import defaultAvatar from '../../../assets/img/default_avatar.jpg';
 import { NavLink } from 'react-router-dom';
 
-const User = (props) => {
-  let avatar = props.user.photos.small;
+const User = ({user, follow, unfollow, followingInProgress, toggleIsFollowing }) => {
+  let avatar = user.photos.small;
   let toggleFollow = () => {
-    props.toggleIsFollowing(true, props.user.id);
-    if (!props.user.followed) {
-      props.follow(props.user.followed, props.user.id);
+    toggleIsFollowing(true, user.id);
+    if (!user.followed) {
+      follow(user.followed, user.id);
     } else {
-      props.unfollow(props.user.followed, props.user.id);
+      unfollow(user.followed, user.id);
     }      
   }
 
   return (
     <div className={classes.user}>
       <div className={classes.user_follow}>
-      <NavLink to={`/profile/${props.user.id}`}>
+      <NavLink to={`/profile/${user.id}`}>
       <img src={avatar ? avatar : defaultAvatar } alt="" />
       </NavLink>        
-        <button disabled={props.followingInProgress.some((id) => id === props.user.id )} onClick={toggleFollow} >
-        {!props.user.followed ? 'follow' : 'unfollow'}
+        <button disabled={followingInProgress.some((id) => id === user.id )} onClick={toggleFollow} >
+        {!user.followed ? 'follow' : 'unfollow'}
         </button>
       </div>
       <div className={classes.user_info}>
         <div className={classes.description}>
-          <span>{props.user.name}</span>
+          <span>{user.name}</span>
         </div>
         <div className={classes.status}>
-          <span>{props.user.status}</span>
+          <span>{user.status}</span>
         </div>
       </div>
     </div>

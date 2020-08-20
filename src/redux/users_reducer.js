@@ -1,6 +1,7 @@
 import { usersAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/object_helpers";
 
-const FOLLOW = 'social_network/users/FOLLOW';
+const TOGGLE_FOLLOWED = 'social_network/users/TOGGLE_FOLLOWED';
 const SET_USERS = 'social_network/users/SET_USERS';
 const SET_CURRENT_PAGE = 'social_network/users/SET_CURRENT_PAGE';
 const TOGGLE_IS_FETCHING = 'social_network/users/TOGGLE_IS_FETCHING';
@@ -18,15 +19,10 @@ let initialState = {
 
 export const usersReducer = (state = initialState, action) => {
   switch(action.type) {
-    case FOLLOW:
+    case TOGGLE_FOLLOWED:
       return {
         ...state,
-        users: state.users.map((user) => {
-          if(action.userId === user.id) {
-            return {...user, followed: action.followed}
-          }
-          return user;
-        })
+        users: updateObjectInArray(state.users, action.userId, 'id', { followed: action.followed }),
       }
     case SET_USERS:
       return {
@@ -60,7 +56,7 @@ export const usersReducer = (state = initialState, action) => {
 
 export const toggleFollow = (followed, userId) => {
   return {
-    type: FOLLOW,
+    type: TOGGLE_FOLLOWED,
     followed: !followed,
     userId
   }
