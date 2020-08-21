@@ -1,4 +1,4 @@
-const { profileReducer, addPost, deletePost } = require("./profile_reducer");
+import { profileReducer, addPost, deletePost } from "./profile_reducer";
 
 it('after add post length posts data should be increment', () => {
   // 1. test data

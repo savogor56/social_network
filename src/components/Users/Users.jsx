@@ -15,7 +15,7 @@ const Users = ({ totalUsersCount, pageSize, currentPage, changePage, users, ...p
   );
   
   return (
-    <main className={`${classes.users} wrap`}>
+    <section className={classes.users}>
     {props.isFetching && <Preloader /> }
       {usersElements}
       <Paginator 
@@ -24,7 +24,7 @@ const Users = ({ totalUsersCount, pageSize, currentPage, changePage, users, ...p
         currentPage={currentPage} 
         changePage={changePage}  
       />
-    </main>    
+    </section>    
   )
 };
 

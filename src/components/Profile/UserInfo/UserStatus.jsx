@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import classes from './UserInfo.module.css';
 
 
-const UserStatus = (props) => {
+const UserStatus = ({profileStatus, putProfileStatus}) => {
   let [editMode, setEditMode] = useState(false);
-  let [status, setStatus] = useState(props.profileStatus);
+  let [status, setStatus] = useState(profileStatus);
 
   useEffect(() => {
-    setStatus(props.profileStatus);
-  }, [props.profileStatus]);
+    setStatus(profileStatus);
+  }, [profileStatus]);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -16,8 +16,8 @@ const UserStatus = (props) => {
 
   const sendStatus = () => {
     toggleEditMode();
-    if (status !== props.profileStatus){
-      props.putProfileStatus(status);
+    if (status !== profileStatus){
+      putProfileStatus(status);
     }
   }
 
@@ -38,7 +38,7 @@ const UserStatus = (props) => {
           value={status}
         /> :
         <span onDoubleClick={toggleEditMode} >
-        {props.profileStatus ? props.profileStatus : 'status'}
+        {profileStatus ? profileStatus : 'status'}
         </span>
       }   
     </div>

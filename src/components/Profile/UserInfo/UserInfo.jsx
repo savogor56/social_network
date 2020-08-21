@@ -6,40 +6,40 @@ import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
 import UserStatus from './UserStatus';
 
 
-const UserInfo = (props) => {
-  if(!props.userProfile) {
+const UserInfo = ({userProfile, profileStatus, putProfileStatus}) => {
+  if(!userProfile) {
     return <Preloader />
   }
   return(
     <div className={classes.user_info + ' wrap'}>
       <div className={classes.main_info}>
           <div className={classes.fullname}>
-            <h3>{props.userProfile.fullName}</h3>
+            <h3>{userProfile.fullName}</h3>
           </div>
           <div className={classes.avatar}>
-          <img src={props.userProfile.photos.large ? props.userProfile.photos.large : defaultAvatar} alt=""></img>
+          <img src={userProfile.photos.large ? userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
-          <div className={classes.about}>{props.userProfile.aboutMe}</div>
+          <div className={classes.about}>{userProfile.aboutMe}</div>
           <UserStatus
-            profileStatus={props.profileStatus} 
-            putProfileStatus={props.putProfileStatus} 
+            profileStatus={profileStatus} 
+            putProfileStatus={putProfileStatus} 
           />
       </div>
       <div className={classes.sub_info}>
-        {props.userProfile.lookingForAJob && <img src={findWorkImg} alt='' />}
-        {props.userProfile.lookingForAJob && props.userProfile.lookingForAJobDescription && 
-        <div>{props.userProfile.lookingForAJobDescription}</div> }
+        {userProfile.lookingForAJob && <img src={findWorkImg} alt='' />}
+        {userProfile.lookingForAJob && userProfile.lookingForAJobDescription && 
+        <div>{userProfile.lookingForAJobDescription}</div> }
       </div>
       <div className={classes.contacts}>
       <h4>Мои контакты</h4>
-      {props.userProfile.contacts.vk && <div>vk: {props.userProfile.contacts.vk}</div>}
-      {props.userProfile.contacts.website && <div>website: {props.userProfile.contacts.website}</div>}
-      {props.userProfile.contacts.facebook && <div>facebook: {props.userProfile.contacts.facebook}</div>}
-      {props.userProfile.contacts.twitter && <div>twitter: {props.userProfile.contacts.twitter}</div>}
-      {props.userProfile.contacts.instagram && <div>instagram: {props.userProfile.contacts.instagram}</div>}
-      {props.userProfile.contacts.youtube && <div>youtube: {props.userProfile.contacts.youtube}</div>}
-      {props.userProfile.contacts.github && <div>github: {props.userProfile.contacts.github}</div>}
-      {props.userProfile.contacts.mainLink && <div>mainLink: {props.userProfile.contacts.mainLink}</div>}
+      {userProfile.contacts.vk && <div>vk: {userProfile.contacts.vk}</div>}
+      {userProfile.contacts.website && <div>website: {userProfile.contacts.website}</div>}
+      {userProfile.contacts.facebook && <div>facebook: {userProfile.contacts.facebook}</div>}
+      {userProfile.contacts.twitter && <div>twitter: {userProfile.contacts.twitter}</div>}
+      {userProfile.contacts.instagram && <div>instagram: {userProfile.contacts.instagram}</div>}
+      {userProfile.contacts.youtube && <div>youtube: {userProfile.contacts.youtube}</div>}
+      {userProfile.contacts.github && <div>github: {userProfile.contacts.github}</div>}
+      {userProfile.contacts.mainLink && <div>mainLink: {userProfile.contacts.mainLink}</div>}
       </div>
     </div>
   )

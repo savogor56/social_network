@@ -23,14 +23,12 @@ const Login = (props) => {
     }
 
     return (
-        <main className="wrap">
-            <div className={classes.login_form_wrap}>
+            <section className={classes.login_form_wrap}>
                 <div className={classes.title}>
                     <h2 >Log In</h2>
                 </div>            
                 <LoginForm err={err} onSubmit={onSubmit} />
-            </div>            
-        </main>       
+            </section>                
     )
 }
 

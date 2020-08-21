@@ -10,13 +10,13 @@ import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {  
   componentDidMount() {
-    
-    if (this.props.userData !== null) {
-      let userId = this.props.match.params.userId ?
-        this.props.match.params.userId : this.props.userData.id;
-      if (!this.props.userProfile || this.props.userProfile.userId !== userId) {
-        this.props.getProfile(userId);
-        this.props.getProfileStatus(userId);
+    const { userData, match, userProfile, getProfile, getProfileStatus } = this.props;
+    if (userData !== null) {
+      let userId = match.params.userId ?
+        match.params.userId : userData.id;
+      if (!userProfile || userProfile.userId !== userId) {
+        getProfile(userId);
+        getProfileStatus(userId);
       }
     }    
   }

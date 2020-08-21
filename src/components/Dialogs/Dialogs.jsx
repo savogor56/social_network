@@ -22,25 +22,23 @@ const Dialogs = ({dialogsData, messagesData, sendMessage}) => {
       <Message 
         id={message.id}
         key={message.id}
-        text={message.text}w
+        text={message.text}
       />
     )
   });
 
   return(
-    <main className={`main wrap ${classes.dialogs}`}>
+    <section className={`${classes.dialogs}`}>
       <div className={`${classes.dialog_list} wrap`}>
       {dialogItems}    
       </div>
       <div className={`${classes.chat} wrap`}>
-        {messages}        
+        {messages}    
       </div>
-      <div className="form_add">
-        <FormAddMessage
-          sendMessage={sendMessage}
-        />
+      <div className={classes.form_add}>
+        <FormAddMessage sendMessage={sendMessage} />
       </div>      
-    </main>
+    </section>
   )
 }
 

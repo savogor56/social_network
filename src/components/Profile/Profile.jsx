@@ -5,19 +5,19 @@ import Preloader from '../common/Preloader/Preloader';
 
 
 
-const Profile = (props) => {
+const Profile = ({isFetching, userProfile, profileStatus, putProfileStatus}) => {
   return(
-    <main className={`main wrap`}>
-      {props.isFetching ? 
+    <section>
+      {isFetching ? 
       <Preloader /> :
       <UserInfo 
-        userProfile={props.userProfile} 
-        profileStatus={props.profileStatus} 
-        putProfileStatus={props.putProfileStatus}      
+        userProfile={userProfile} 
+        profileStatus={profileStatus} 
+        putProfileStatus={putProfileStatus}      
       />
       }        
       <PostsContainer />
-    </main>
+    </section>
   )
 }
 

@@ -19,7 +19,8 @@ class App extends React.Component {
   }
 
   render() {
-    if (!this.props.initialised) {
+    const {initialised} = this.props;
+    if (!initialised) {
       return <Preloader />
     }
     return (
@@ -27,10 +28,12 @@ class App extends React.Component {
         <div className="app_wrapper">
           <HeaderContainer />
           <AsideContainer />
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-          <Route exact path="/users" render={() => <UsersContainer />} />
-          <Route exact path="/login" render={() => <LoginContainer />} />
+          <main className="wrap main">
+            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+            <Route exact path="/dialogs" render={() => <DialogsContainer />} />
+            <Route exact path="/users" render={() => <UsersContainer />} />
+            <Route exact path="/login" render={() => <LoginContainer />} />
+          </main>          
         </div>
       </div> 
     )
