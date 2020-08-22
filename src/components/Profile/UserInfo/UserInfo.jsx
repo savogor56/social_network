@@ -4,6 +4,7 @@ import Preloader from '../../common/Preloader/Preloader';
 import findWorkImg from '../../../assets/img/find_work.jpg';
 import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
 import UserStatus from './UserStatus';
+import UserStatusClass from './UserStatusClass';
 
 
 const UserInfo = ({userProfile, profileStatus, putProfileStatus}) => {
