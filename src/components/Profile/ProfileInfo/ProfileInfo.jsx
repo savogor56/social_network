@@ -1,13 +1,12 @@
 import React from 'react';
-import classes from './UserInfo.module.css'
+import classes from './ProfileInfo.module.css'
 import Preloader from '../../common/Preloader/Preloader';
 import findWorkImg from '../../../assets/img/find_work.jpg';
 import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
-import UserStatus from './UserStatus';
-import UserStatusClass from './UserStatusClass';
+import ProfileStatus from './ProfileStatus/ProfileStatus';
 
 
-const UserInfo = ({userProfile, profileStatus, putProfileStatus}) => {
+const ProfileInfo = ({userProfile, profileStatus, putProfileStatus}) => {
   if(!userProfile) {
     return <Preloader />
   }
@@ -21,7 +20,7 @@ const UserInfo = ({userProfile, profileStatus, putProfileStatus}) => {
           <img src={userProfile.photos.large ? userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
           <div className={classes.about}>{userProfile.aboutMe}</div>
-          <UserStatus
+          <ProfileStatus
             profileStatus={profileStatus} 
             putProfileStatus={putProfileStatus} 
           />
@@ -46,4 +45,4 @@ const UserInfo = ({userProfile, profileStatus, putProfileStatus}) => {
   )
 }
 
-export default UserInfo;
+export default ProfileInfo;

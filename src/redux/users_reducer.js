@@ -4,13 +4,16 @@ import { updateObjectInArray } from "../utils/object_helpers";
 const TOGGLE_FOLLOWED = 'social_network/users/TOGGLE_FOLLOWED';
 const SET_USERS = 'social_network/users/SET_USERS';
 const SET_CURRENT_PAGE = 'social_network/users/SET_CURRENT_PAGE';
+const SET_CURRENT_PORTION = 'social_network/users/SET_CURRENT_PORTION';
 const TOGGLE_IS_FETCHING = 'social_network/users/TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING = 'social_network/users/TOGGLE_IS_FOLLOWING';
 
 let initialState = {
     users: [],
     totalUsersCount: 1,
-    pageSize: 5,
+    pageSize: 10,
+    portionSize: 20,
+    currentPortion: 1,
     currentPage: 1,
     isFetching: false,
     followingInProgress: []
@@ -36,6 +39,11 @@ export const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.page
+      } 
+    case SET_CURRENT_PORTION:
+      return {
+        ...state,
+        currentPortion: action.portionNumber
       } 
     case TOGGLE_IS_FETCHING:
       return{
@@ -76,6 +84,12 @@ export const setCurrentPage = (page) => {
     page
   }
 }
+export const setCurrentPortion = (portionNumber) => {
+  return {
+    type: SET_CURRENT_PORTION,
+    portionNumber
+  }
+}
 
 export const toggleIsFetching = (isFetching) => {
   return {
@@ -92,13 +106,14 @@ export const toggleIsFollowing = (isFollowing, userId) => {
   }
 }
 
-export const requestUsers = (currentPage, pageSize) => async dispatch => {
+export const requestUsers = (currentPage, pageSize, currentPortion) => async dispatch => {
+  dispatch(setCurrentPortion(currentPortion));
   dispatch(setCurrentPage(currentPage));
   dispatch(toggleIsFetching(true));
   const data = await usersAPI.getUsers(currentPage, pageSize);
   dispatch(toggleIsFetching(false));
   const users = data.items;
-  const totalUsersCount = Math.ceil(data.totalCount / 50);
+  const totalUsersCount = data.totalCount
   dispatch(setUsers(users, totalUsersCount));
 }
 

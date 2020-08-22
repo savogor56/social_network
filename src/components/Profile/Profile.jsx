@@ -1,5 +1,5 @@
 import React from 'react';
-import UserInfo from './UserInfo/UserInfo';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 import PostsContainer from './Posts/PostsContainer';
 import Preloader from '../common/Preloader/Preloader';
 
@@ -10,7 +10,7 @@ const Profile = ({isFetching, userProfile, profileStatus, putProfileStatus}) => 
     <section>
       {isFetching ? 
       <Preloader /> :
-      <UserInfo 
+      <ProfileInfo 
         userProfile={userProfile} 
         profileStatus={profileStatus} 
         putProfileStatus={putProfileStatus}      

@@ -4,7 +4,7 @@ import User from './User/User';
 import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
 
-const Users = ({ totalUsersCount, pageSize, currentPage, changePage, users, ...props}) => {
+const Users = ({ totalUsersCount, pageSize, currentPage, changePage, users, portionSize, currentPortion, changePortion, ...props}) => {
   let usersElements = users.map((user) => (
       <User 
         key={user.id} 
@@ -19,10 +19,13 @@ const Users = ({ totalUsersCount, pageSize, currentPage, changePage, users, ...p
     {props.isFetching && <Preloader /> }
       {usersElements}
       <Paginator 
-        totalUsersCount={totalUsersCount} 
+        totalItemsCount={totalUsersCount} 
         pageSize={pageSize} 
         currentPage={currentPage} 
-        changePage={changePage}  
+        changePage={changePage}
+        changePortion={changePortion}
+        portionSize={portionSize}
+        currentPortion={currentPortion}
       />
     </section>    
   )

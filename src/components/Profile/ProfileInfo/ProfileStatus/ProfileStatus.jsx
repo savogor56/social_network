@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import classes from './UserInfo.module.css';
+import classes from './ProfileStatus.module.css';
 
 
-const UserStatus = ({profileStatus, putProfileStatus}) => {
+const ProfileStatus = ({profileStatus, putProfileStatus}) => {
   let [editMode, setEditMode] = useState(false);
   let [status, setStatus] = useState(profileStatus);
 
@@ -45,4 +45,4 @@ const UserStatus = ({profileStatus, putProfileStatus}) => {
   );
 }
 
-export default UserStatus;
+export default ProfileStatus;

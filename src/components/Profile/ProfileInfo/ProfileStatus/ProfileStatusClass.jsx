@@ -1,8 +1,8 @@
 import React from 'react';
-import classes from './UserInfo.module.css'
+import classes from './ProfileStatus.module.css'
 
 
-class UserStatusClass extends React.Component {
+class ProfileStatusClass extends React.Component {
   state = {
     editMode: false,
     status: this.props.profileStatus
@@ -46,11 +46,11 @@ class UserStatusClass extends React.Component {
             type="text" 
             value={this.state.status}
           /> :
-          <span onDoubleClick={this.toggleEditMode} >{this.props.profileStatus ? this.props.profileStatus : 'status'}</span>
+          <span onDoubleClick={this.toggleEditMode} >{this.props.profileStatus ? this.props.profileStatus : 'default status'}</span>
         }   
       </div>
     );
   }
 }
 
-export default UserStatusClass;
+export default ProfileStatusClass;
