@@ -8,15 +8,32 @@ import { compose } from 'redux';
 
 
 
-class ProfileContainer extends React.Component {  
+class ProfileContainer extends React.Component {
+  refreshProfile(userId) {
+    const { getProfile, getProfileStatus } = this.props;
+      getProfile(userId);
+      getProfileStatus(userId);
+  }
+
   componentDidMount() {
-    const { userData, match, userProfile, getProfile, getProfileStatus } = this.props;
+    const { userData, match, userProfile } = this.props;
     if (userData !== null) {
       let userId = match.params.userId ?
         match.params.userId : userData.id;
-      if (!userProfile || userProfile.userId !== userId) {
-        getProfile(userId);
-        getProfileStatus(userId);
+      if (!userProfile || userProfile.userId !== +userId) {
+        this.refreshProfile(userId);
+      }
+    }    
+  }
+
+  componentDidUpdate(prevProps) {
+    const { userData, match, userProfile } = this.props;
+    // debugger
+    const userId = match.params.userId ?
+        match.params.userId : userData.id;
+    if (userProfile && prevProps.userProfile) {
+      if (userProfile.userId !== +userId) {
+        this.refreshProfile(userId);
       }
     }    
   }
