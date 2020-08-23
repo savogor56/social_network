@@ -11,8 +11,8 @@ const TOGGLE_IS_FOLLOWING = 'social_network/users/TOGGLE_IS_FOLLOWING';
 let initialState = {
     users: [],
     totalUsersCount: 1,
-    pageSize: 10,
-    portionSize: 20,
+    pageSize: 5,
+    portionSize: 10,
     currentPortion: 1,
     currentPage: 1,
     isFetching: false,
