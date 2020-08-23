@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -10,7 +9,9 @@ import { connect } from 'react-redux';
 import { initialisedApp } from './redux/app_reducer';
 import Preloader from './components/common/Preloader/Preloader';
 import AsideContainer from './components/Aside/AsideContainer';
+import { withSuspense } from './hoc/withSuspense';
 
+const DialogsContainer = lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 
 class App extends React.Component {
@@ -23,16 +24,17 @@ class App extends React.Component {
     if (!initialised) {
       return <Preloader />
     }
+
     return (
       <div className="background blur">
         <div className="app_wrapper">
           <HeaderContainer />
           <AsideContainer />
           <main className="wrap main">
-            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-            <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-            <Route exact path="/users" render={() => <UsersContainer />} />
-            <Route exact path="/login" render={() => <LoginContainer />} />
+          <Route exact path="/dialogs" render={withSuspense(DialogsContainer)} />                  
+          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+          <Route exact path="/users" render={() => <UsersContainer />} />
+          <Route exact path="/login" render={() => <LoginContainer />} />
           </main>          
         </div>
       </div> 
