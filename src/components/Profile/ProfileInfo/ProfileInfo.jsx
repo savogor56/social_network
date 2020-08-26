@@ -6,10 +6,17 @@ import defaultAvatar from '../.././../assets/img/default_avatar.jpg';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 
 
-const ProfileInfo = ({userProfile, profileStatus, putProfileStatus}) => {
+const ProfileInfo = ({userProfile, profileStatus, putProfileStatus, isOwner, saveAvatar}) => {
   if(!userProfile) {
     return <Preloader />
   }
+
+  const avatarSelected = e => {
+    if (e.target.files.length) {
+      saveAvatar(e.target.files[0]);
+    }
+  }
+
   return(
     <div className={classes.user_info + ' wrap'}>
       <div className={classes.main_info}>
@@ -19,6 +26,7 @@ const ProfileInfo = ({userProfile, profileStatus, putProfileStatus}) => {
           <div className={classes.avatar}>
           <img src={userProfile.photos.large ? userProfile.photos.large : defaultAvatar} alt=""></img>
           </div>
+          {isOwner && <input type="file" onChange={avatarSelected} />}
           <div className={classes.about}>{userProfile.aboutMe}</div>
           <ProfileStatus
             profileStatus={profileStatus} 

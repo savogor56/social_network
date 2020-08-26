@@ -3,9 +3,8 @@ import logo from '../../logo.svg';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
-import defaultAvatar from '../../assets/img/default_avatar.jpg';
 
-const Header = ({isFetching, isAuth, userProfile, userData, authLogOut}) => {
+const Header = ({isFetching, isAuth, userData, authLogOut, avatar}) => {
   return(
     <header className={`${classes.header} wrap`}>
       <div className={classes.info_block}>
@@ -19,14 +18,13 @@ const Header = ({isFetching, isAuth, userProfile, userData, authLogOut}) => {
             isAuth ?
             <div className={classes.user_info}>
               <span>{userData.login}</span>
-              {userProfile && <img src={userProfile.photos.small ? userProfile.photos.small : defaultAvatar} alt=""/>}
+            <img src={avatar} alt=""/>
               <button onClick={authLogOut} >Log Out</button>
             </div> :
             <NavLink to='/login'>LogIn</NavLink>
           }          
         </div>
-      }     
-      
+      }
     </header>
   )
 }

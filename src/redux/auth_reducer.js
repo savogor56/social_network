@@ -1,17 +1,20 @@
 import { authAPI } from "../api/api";
 import { getProfile } from "./profile_reducer";
+import defaultAvatar from '../assets/img/default_avatar.jpg';
 
 const TOGGLE_IS_FETCHING = 'social_network/auth/TOGGLE_IS_FETCHING';
 const SET_USER_DATA = 'social_network/auth/SET_USER_DATA';
 const SET_ERROR = 'social_network/auth/SET_ERROR';
+const SET_CUR_USER_AVATAR = 'social_network/auth/SET_ERROR';
 
 let initialState = {
-    resultCode: null,
-    messages: null,
-    data: null,
-    isFetching: false,
-    isAuth: false,
-    error: null
+  resultCode: null,
+  messages: null,
+  data: null,
+  isFetching: false,
+  isAuth: false,
+  error: null,
+  curUserAvatar: defaultAvatar
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -33,6 +36,11 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.error
+      }
+    case SET_CUR_USER_AVATAR:
+      return {
+        ...state,
+        curUserAvatar: action.avatar
       }
     default:
       return state
@@ -58,6 +66,11 @@ const setError = (error) => ({
   error
 })
 
+const setCurUserAvatar = (avatar) => ({
+  type: SET_CUR_USER_AVATAR,
+  avatar
+})
+
 export const getCurrentUserData = () => async dispatch => {
   dispatch(toggleIsFetching(true));    
   const response = await authAPI.getCurrentUserData();      
@@ -65,8 +78,12 @@ export const getCurrentUserData = () => async dispatch => {
   const { data, resultCode, messages } = response.data;
   if (resultCode === 0) {
     dispatch(setUserData(data, resultCode, messages, true));
-    getProfile(data.id);
-  }  
+    const profileData = await dispatch(getProfile(data.id));
+    const avatar = profileData.photos.large;
+    if (avatar) { 
+      dispatch(setCurUserAvatar(avatar))
+    }
+  } 
 }
 
 export const authLogin = (email, password, rememberMe) => async dispatch => {

@@ -5,7 +5,7 @@ import Preloader from '../common/Preloader/Preloader';
 
 
 
-const Profile = ({isFetching, userProfile, profileStatus, putProfileStatus}) => {
+const Profile = ({isFetching, userProfile, profileStatus, putProfileStatus, match, saveAvatar}) => {
   return(
     <section>
       {isFetching ? 
@@ -13,7 +13,9 @@ const Profile = ({isFetching, userProfile, profileStatus, putProfileStatus}) => 
       <ProfileInfo 
         userProfile={userProfile} 
         profileStatus={profileStatus} 
-        putProfileStatus={putProfileStatus}      
+        putProfileStatus={putProfileStatus}
+        isOwner={!match.params.userId}
+        saveAvatar={saveAvatar}
       />
       }        
       <PostsContainer />

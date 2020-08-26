@@ -6,6 +6,7 @@ const SET_USER_PROFILE = "social_network/profile/SET_USER_PROFILE";
 const TOGGLE_IS_FETCHING = "social_network/profile/TOGGLE_IS_FETCHING";
 const SET_PROFILE_STATUS = "social_network/profile/SET_PROFILE_STATUS";
 const DELETE_POST = "social_network/profile/DELETE_POST";
+const SAVE_AVATAR_SUCCESS = "social_network/profile/SAVE_AVATAR_SUCCESS";
 
 let initialState = {
   postsData: [
@@ -74,57 +75,64 @@ export const profileReducer = (state = initialState, action) => {
   }  
 }
 
-export const addPost = (postMessage) => {
-  return {
+export const addPost = (postMessage) => ({
     type: ADD_POST,
     postMessage
-  }
-};
+});
 
-export const deletePost = (id) => {
-  return {
+export const deletePost = (id) => ({
     type: DELETE_POST,
     id
-  }
-};
+});
 
-export const updateNewPostText = (text) => {
-  return {
+export const updateNewPostText = (text) => ({
     type: UPDATE_NEW_POST_TEXT,
     newText: text
-  }
-};
+});
 
-export const setUserProfile = (profileData) => ({
+const setUserProfile = (profileData) => ({
   type: SET_USER_PROFILE,
   profileData
 })
 
-export const toggleIsFetching = (isFetching) => ({
+const toggleIsFetching = (isFetching) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching
 })
 
-export const setProfileStatus = (profileStatus) => ({
+const setProfileStatus = (profileStatus) => ({
   type: SET_PROFILE_STATUS,
   profileStatus
 })
+
+const saveAvatarSucces = (avatar) => ({
+  type: SAVE_AVATAR_SUCCESS,
+  avatar
+});
 
 export const getProfile = userId => async dispatch => {
   dispatch(toggleIsFetching(true));
   const data = await profileAPI.getProfile(userId)
   dispatch(toggleIsFetching(false));
   dispatch(setUserProfile(data));
+  return data;
 }
 
-export const getProfileStatus = (userId) => async dispatch => {
+export const getProfileStatus = userId => async dispatch => {
   const data = await profileAPI.getProfileStatus(userId);
   dispatch(setProfileStatus(data));
 }
 
-export const putProfileStatus = (profileStatus) => async dispatch => {
+export const putProfileStatus = profileStatus => async dispatch => {
   let data = await profileAPI.putProfileStatus(profileStatus)
   if (!data.resultCode) {
     dispatch(setProfileStatus(profileStatus));
   }
 }
+
+export const saveAvatar = file => async dispatch => {
+  let data = await profileAPI.savePhoto(file);
+  if (data.resultCode === 0) {
+    dispatch(saveAvatarSucces(data.photos));
+  }
+} 

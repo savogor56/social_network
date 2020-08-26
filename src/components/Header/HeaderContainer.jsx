@@ -17,7 +17,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.auth.isFetching,
   userData: state.auth.data,
   isAuth: state.auth.isAuth,
-  userProfile: state.profilePage.userProfile
+  avatar: state.auth.curUserAvatar
 });
 
 const mapDispatchToProps = {
