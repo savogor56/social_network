@@ -1,23 +1,22 @@
-.user_info { 
+.profile_info { 
   display: grid;
   grid-template-areas: 
-  'main sub'
-  'main contacts';
+  'main find_job'
+  'about contacts';
   grid-template-columns: 1fr 2fr;
-  }
+}
 
 .main_info {
-display: flex;
-flex-direction: column;
-grid-area: main;
+  display: flex;
+  flex-direction: column;
+  grid-area: main;
 }
 
-.sub_info {
-  grid-area: sub;
+.find_job {
+  grid-area: find_job;
   display: flex;
 }
-.sub_info img{
-  grid-area: sub;
+.find_job img {
   width: 128px;
   height: 128px;
   padding: 5px;
@@ -33,12 +32,13 @@ grid-area: main;
 }
   
 .avatar img{
-    width: 200px;
-    height: 128px;
+  width: 200px;
+  height: 128px;
 }
 
 .about {
-font-size: 1.3rem;
+  font-size: 1.3rem;
+  grid-area: about;
 }
 
 

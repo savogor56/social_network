@@ -1,0 +1,14 @@
+.find_job {
+    grid-area: find_job;
+    display: flex;
+}
+
+.contacts {
+    grid-area: contacts;
+    padding: 5px;
+}
+
+.about {
+    font-size: 1.3rem;
+    grid-area: about;
+}

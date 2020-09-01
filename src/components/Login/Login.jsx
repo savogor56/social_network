@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 const Login = (props) => {
     let err = '';
-    const onSubmit = (formData) => {
+    const login = (formData) => {
         if (formData) {
             const { email, password, rememberMe } = formData;
             props.authLogin(email, password, rememberMe);       
@@ -27,14 +27,14 @@ const Login = (props) => {
                 <div className={classes.title}>
                     <h2 >Log In</h2>
                 </div>            
-                <LoginForm err={err} onSubmit={onSubmit} />
+            <LoginForm err={err} login={login} />
             </section>                
     )
 }
 
 const LoginForm = (props) => {  
     return (
-        <Form onSubmit={props.onSubmit}>
+        <Form onSubmit={props.login}>
             {({submitError, handleSubmit, pristine, form, submitting, values, submitSucceeded, submitFailed}) => (
                 <form 
                     className={classes.login_form} 
@@ -48,6 +48,7 @@ const LoginForm = (props) => {
                     <Field
                         name="email"
                         placeholder="E-mail"
+                        label="E-mail"
                         component={Input}
                         type="text"
                         className={classes.input_wrap}
@@ -56,6 +57,7 @@ const LoginForm = (props) => {
                     <Field 
                         name="password" 
                         placeholder="Password" 
+                        label="Password" 
                         component={Input}
                         type="password"
                         className={classes.input_wrap} 

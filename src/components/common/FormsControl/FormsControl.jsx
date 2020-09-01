@@ -21,11 +21,11 @@ export const Textarea = (props) => {
 }
 
 export const Input = (props) => {
-    const { input, placeholder } = props;
+    const { input, label, ...restProps } = props;
     return (
         <FormControl {...props}>
-            <label>{placeholder}</label>
-            <input {...input} placeholder={placeholder} />
+            <label>{label}</label>
+            <input {...input} {...restProps} />
         </FormControl>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getProfile, getProfileStatus, putProfileStatus, saveAvatar } from './../../redux/profile_reducer';
+import { getProfile, getProfileStatus, putProfileStatus, saveAvatar, saveProfile } from './../../redux/profile_reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
@@ -55,7 +55,8 @@ const mapDispatchToProps = {
   getProfile,
   getProfileStatus,
   putProfileStatus,
-  saveAvatar
+  saveAvatar,
+  saveProfile
 };
 
 export default compose(

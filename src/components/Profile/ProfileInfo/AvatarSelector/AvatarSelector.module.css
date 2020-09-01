@@ -1,0 +1,7 @@
+.avatar_selector {
+    padding: 5px;
+}
+
+.avatar_selector input[type='file'] {
+    display: none;
+}

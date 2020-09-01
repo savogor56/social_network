@@ -7,6 +7,10 @@
     border-radius: 6px;
 }
 
+.form_control label {
+    margin-right: 5px;
+}
+
 .form_control.error input, 
 .form_control.error textarea {
     border: 2px solid red;
