@@ -10,5 +10,17 @@
 
 .about {
     font-size: 1.3rem;
-    grid-area: about;
+}
+
+.contacts {
+    display: grid;
+    grid-template: 1fr / 50% 50%;
+}
+
+.contact {
+    padding: 10px;
+}
+
+.error {
+    color: red;
 }

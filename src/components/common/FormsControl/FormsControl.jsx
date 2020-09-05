@@ -2,11 +2,11 @@ import React from 'react';
 import classes from './FormsControl.module.css';
 
 const FormControl = ({ meta, className, children }) => {
-    const hasError = (meta.error || meta.submitError) && meta.touched;
+    const hasError = (meta.error && meta.touched) || meta.submitError;
     return (
         <div className={`${className} ${classes.form_control} ${hasError && classes.error}`}>
             {children}
-            {hasError && <span>{meta.error || meta.submitError}</span>}
+            {hasError && <span>{meta.error}</span>}
         </div> 
     )
 }
@@ -15,6 +15,7 @@ export const Textarea = (props) => {
     const {input, placeholder} = props;
     return (
         <FormControl {...props}>
+            <label>{props.label}</label>
             <textarea {...input} placeholder={placeholder} />
         </FormControl> 
     )

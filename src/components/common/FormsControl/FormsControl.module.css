@@ -1,5 +1,6 @@
 .form_control {
     border-radius: 6px;
+    display: flex;
 }
 
 .form_control input,

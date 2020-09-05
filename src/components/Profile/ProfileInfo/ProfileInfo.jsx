@@ -10,7 +10,7 @@ import ProfileSubInfoForm from './ProfileSubInfoForm/ProfileSubInfoForm';
 
 
 const ProfileInfo = ({userProfile, profileStatus, putProfileStatus, isOwner, saveAvatar, saveProfile}) => {
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
 
   if(!userProfile) {
     return <Preloader />
@@ -26,8 +26,15 @@ const ProfileInfo = ({userProfile, profileStatus, putProfileStatus, isOwner, sav
     setEditMode(!editMode);
   }
 
-  const changeInfo = (formData) => {
+  const changeInfo = async (formData) => {
     console.log(formData);
+    const saveResult = await saveProfile(formData);
+    if (saveResult.isSuccess) {
+      toggleEditMode();
+    } else {
+      return saveResult.errorMessage
+    }
+    
   }
 
   return(
@@ -64,11 +71,15 @@ const ProfileSubInfo = ({userProfile,  isOwner, toggleEditMode}) => {
       {lookingForAJob && lookingForAJobDescription &&
       <div>{lookingForAJobDescription}</div>}
     </div>
-    <div className={classes.contacts}>
+    <div className={classes.contacts_wrap}>
       <h4>Contacts</h4>
-      {Object.keys(contacts).map(key => (
-        <ProfileContact key={key} contactTitle={key} contact={contacts[key]} />
-      ))}
+      <div className={classes.contacts}>
+        {Object.keys(contacts).map(key => (
+          <div key={key} className={classes.contact}>
+            <ProfileContact  contactTitle={key} contact={contacts[key]} />
+          </div>          
+        ))}
+      </div>      
     </div>
     </>
   )

@@ -7,7 +7,6 @@ const TOGGLE_IS_FETCHING = "social_network/profile/TOGGLE_IS_FETCHING";
 const SET_PROFILE_STATUS = "social_network/profile/SET_PROFILE_STATUS";
 const DELETE_POST = "social_network/profile/DELETE_POST";
 const SAVE_AVATAR_SUCCESS = "social_network/profile/SAVE_AVATAR_SUCCESS";
-const SAVE_PROFILE_SUCCESS = "social_network/profile/SAVE_PROFILE_SUCCESS";
 
 let initialState = {
   postsData: [
@@ -76,11 +75,6 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         userProfile: {...state.userProfile, photos: action.photos}
       }
-    case SAVE_AVATAR_SUCCESS:
-      return {
-        ...state,
-        userProfile: {...state.userProfile, ...action.profileInfo}
-      }
     default: 
       return state;
   }  
@@ -121,11 +115,6 @@ const saveAvatarSucces = (photos) => ({
   photos
 });
 
-const saveProfileSucces = (profileInfo) => ({
-  type: SAVE_PROFILE_SUCCESS,
-  profileInfo
-});
-
 export const getProfile = userId => async dispatch => {
   dispatch(toggleIsFetching(true));
   const data = await profileAPI.getProfile(userId)
@@ -140,22 +129,29 @@ export const getProfileStatus = userId => async dispatch => {
 }
 
 export const putProfileStatus = profileStatus => async dispatch => {
-  let data = await profileAPI.putProfileStatus(profileStatus)
+  const data = await profileAPI.putProfileStatus(profileStatus)
   if (!data.resultCode) {
     dispatch(setProfileStatus(profileStatus));
   }
 }
 
 export const saveAvatar = file => async dispatch => {
-  let data = await profileAPI.saveAvatar(file);
+  const data = await profileAPI.saveAvatar(file);
   if (data.resultCode === 0) {
     dispatch(saveAvatarSucces(data.data.photos));
   }
 } 
 
-export const saveProfile = profileInfo => async dispatch => {
-  let data = await profileAPI.saveProfile(profileInfo);
+export const saveProfile = profileInfo => async (dispatch, getState) => {
+  const userId = getState().auth.data.id;
+  const data = await profileAPI.saveProfile(profileInfo);
   if (data.resultCode === 0) {
-    dispatch(saveAvatarSucces(data.data.photos));
+    dispatch(getProfile(userId));
+    return { isSuccess: true}
+  } else {
+    return {
+      isSuccess: false,
+      errorMessage: data.messages[0]
+    }
   }
 } 

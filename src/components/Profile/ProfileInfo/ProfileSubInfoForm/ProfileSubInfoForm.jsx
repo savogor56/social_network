@@ -2,13 +2,33 @@ import React from 'react';
 import { Form, Field } from 'react-final-form';
 import { Input, Textarea } from '../../../common/FormsControl/FormsControl';
 import classes from './ProfileSubInfoForm.module.css';
+import { FORM_ERROR } from 'final-form';
+import { logDOM } from '@testing-library/react';
 
-const ProfileSubInfoForm = ({ userProfile, changeInfo }) => {
-    const { lookingForAJob, lookingForAJobDescription, contacts } = userProfile;
-    
+const ProfileSubInfoForm = ({ userProfile, changeInfo, toggleEditMode }) => {
+
+    const onSubmit = async (formData) => {
+        const errorMessage = await changeInfo(formData);
+        console.log(formData.contacts);
+        
+        if (errorMessage) {
+            let error = { 
+                [FORM_ERROR]: errorMessage,
+                contacts: {}
+             };
+            
+            Object.keys(formData.contacts).forEach(key => {
+                if (errorMessage.toLowerCase().includes(key.toLowerCase())) {                    
+                    error.contacts[key] = errorMessage;
+                }
+            })
+           return error
+        } 
+    }
+
     return (
-        <Form onSubmit={changeInfo}>
-            {({submitError, handleSubmit, pristine, submitting, form, values, submitSucceed, submitFailed}) => (
+        <Form onSubmit={onSubmit} initialValues={userProfile}>
+            {({submitError, handleSubmit, submitting, pristine}) => (
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Field
@@ -29,18 +49,29 @@ const ProfileSubInfoForm = ({ userProfile, changeInfo }) => {
                         <Field
                             name="lookingForAJobDescription"
                             component={Textarea}
-                            label="Looking for a job description"
                             placeholder="Looking for a job description"
                         />
                     </div>
                     <div className={classes.about}>
                         <Field
-                            name="about"
+                            name="aboutMe"
                             component={Textarea}
                             placeholder="about me"
+                            label="about me"
                         />
                     </div>
-                    <button>Save</button>
+                    <h3>Contacts:</h3>
+                    <div className={classes.contacts}>
+                        {Object.keys(userProfile.contacts).map(key => (
+                            <div key={key} className={classes.contact}>
+                                <Field  name={`contacts.${key}`} component={Input}  label={key} />
+                            </div>
+                            
+                        ))}
+                    </div>
+                    {submitError && <div className={classes.error} >{submitError}</div>}
+                    <button disabled={submitting || pristine}>Save</button>
+                    <button onClick={toggleEditMode}>Cancel</button>
                 </form>
             )}
         </Form>
