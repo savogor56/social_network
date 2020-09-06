@@ -3,7 +3,6 @@ import { Form, Field } from 'react-final-form';
 import { Input, Textarea } from '../../../common/FormsControl/FormsControl';
 import classes from './ProfileSubInfoForm.module.css';
 import { FORM_ERROR } from 'final-form';
-import { logDOM } from '@testing-library/react';
 
 const ProfileSubInfoForm = ({ userProfile, changeInfo, toggleEditMode }) => {
 

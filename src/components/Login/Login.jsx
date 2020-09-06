@@ -4,21 +4,17 @@ import { Form, Field } from 'react-final-form';
 import { required, composeValidators, minLength } from '../../utils/validators/validators';
 import { Input } from '../common/FormsControl/FormsControl';
 import { Redirect } from 'react-router-dom';
+import { FORM_ERROR } from 'final-form';
 
-const Login = (props) => {
-    let err = '';
-    const login = (formData) => {
+const Login = ({isAuth, authLogin, captchaUrl}) => {
+    const login = async (formData) => {
         if (formData) {
-            const { email, password, rememberMe } = formData;
-            props.authLogin(email, password, rememberMe);       
+            const { email, password, rememberMe, captcha } = formData;
+            return await authLogin(email, password, rememberMe, captcha);                
         }        
     }
 
-    if (props.error) {
-        err = props.error;
-    }   
-
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={"/profile"} />
     }
 
@@ -27,15 +23,23 @@ const Login = (props) => {
                 <div className={classes.title}>
                     <h2 >Log In</h2>
                 </div>            
-            <LoginForm err={err} login={login} />
+            <LoginForm login={login} captchaUrl={captchaUrl} />
             </section>                
     )
 }
 
-const LoginForm = (props) => {  
+const LoginForm = ({login, captchaUrl}) => {  
+    const onSubmit = async (formData) => {
+        const result = await login(formData);
+        if (!result.isSuccess) {
+            return {
+                [FORM_ERROR]: result.errorMessage
+            }
+        }
+    }
     return (
-        <Form onSubmit={props.login}>
-            {({submitError, handleSubmit, pristine, form, submitting, values, submitSucceeded, submitFailed}) => (
+        <Form onSubmit={onSubmit}>
+            {({submitError, handleSubmit, pristine, form, submitting, submitSucceeded}) => (
                 <form 
                     className={classes.login_form} 
                     onSubmit={async event => {
@@ -67,7 +71,12 @@ const LoginForm = (props) => {
                     <Field name="rememberMe"  component="input" type="checkbox" />
                     <span>Remember me</span>
                 </div>
-                {props.err && <div className={classes.error}>{props.err}</div>}               
+                {captchaUrl &&
+                 <div>
+                    <Field name="captcha" component={Input} label="captcha" validate={required} />
+                    <img src={captchaUrl} alt="" />
+                 </div>}
+                {submitError && <div className={classes.error}>{submitError}</div>}               
                 <button disabled={submitting}>Login</button>
                 </form>
             )}
