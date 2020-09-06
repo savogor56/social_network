@@ -1,6 +1,6 @@
 import React, { lazy } from 'react';
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
@@ -31,10 +31,18 @@ class App extends React.Component {
           <HeaderContainer />
           <AsideContainer />
           <main className="wrap main">
-          <Route exact path="/dialogs" render={withSuspense(DialogsContainer)} />                  
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Route exact path="/users" render={() => <UsersContainer />} />
-          <Route exact path="/login" render={() => <LoginContainer />} />
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/profile" />} />
+            <Route path="/dialogs" render={withSuspense(DialogsContainer)} />                  
+            <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+            <Route path="/users" render={() => <UsersContainer />} />
+            <Route path="/login" render={() => <LoginContainer />} />
+            <Route path="*">
+              <div>
+                404 Not Found
+              </div>
+            </Route>
+          </Switch>         
           </main>          
         </div>
       </div> 
