@@ -8,7 +8,32 @@ const SET_PROFILE_STATUS = "social_network/profile/SET_PROFILE_STATUS";
 const DELETE_POST = "social_network/profile/DELETE_POST";
 const SAVE_AVATAR_SUCCESS = "social_network/profile/SAVE_AVATAR_SUCCESS";
 
-let initialState = {
+export type ContactsType = {
+  github: string
+  vk: string
+  facebook: string
+  instagram: string
+  twitter: string
+  website: string
+  youtube: string
+  mainLink: string
+}
+
+export type PhotosType = {
+  small: string | null
+  large: string | null
+} 
+
+export type ProfileType = {
+  userId: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
+  fullName: string
+  contacts: ContactsType
+  photos: PhotosType
+}
+
+const initialState = {
   postsData: [
     {
       id: 1,
@@ -24,19 +49,20 @@ let initialState = {
     }
   ],
   newPostText: "",
-  userProfile: null,
+  userProfile: null as ProfileType | null,
   isFetching: false,
   profileStatus: ''
 }
 
+type ActionType = AddPostType | DeletePostType | UpdateNewPostTextType | SetUserProfileType | 
+ToggleIsFetchingType | SetProfileStatusType | SaveAvatarSuccessType
 
-
-export const profileReducer = (state = initialState, action) => {
-  switch(action.type) {       
+export const profileReducer = (state = initialState, action: ActionType) => {
+  switch(action.type) {
     case ADD_POST:
-      let newPost = {
+      const newPost = {
         id: state.postsData[state.postsData.length - 1].id + 1,
-        message: action.postMessage,
+        message: action.payload,
         likesCount: 0,
         avatar: ''
       };
@@ -48,74 +74,109 @@ export const profileReducer = (state = initialState, action) => {
     case DELETE_POST:
       return {
         ...state,
-        postsData: state.postsData.filter((item) => item.id !== action.id)
+        postsData: state.postsData.filter((item) => item.id !== action.payload)
       };
     case UPDATE_NEW_POST_TEXT: 
       return {
         ...state,
-        newPostText: action.newText
+        newPostText: action.payload
       };      
     case SET_USER_PROFILE: 
       return {
         ...state,
-        userProfile: action.profileData
+        userProfile: action.payload
       };
     case TOGGLE_IS_FETCHING:
       return {
         ...state,
-        isFetching: action.isFetching
+        isFetching: action.payload
       }
     case SET_PROFILE_STATUS:
       return {
         ...state,
-        profileStatus: action.profileStatus
+        profileStatus: action.payload
       }
     case SAVE_AVATAR_SUCCESS:
       return {
         ...state,
-        userProfile: {...state.userProfile, photos: action.photos}
+        userProfile: {...state.userProfile, photos: action.payload}
       }
     default: 
       return state;
   }  
 }
 
-export const addPost = (postMessage) => ({
+type AddPostType = {
+  type: typeof ADD_POST
+  payload: string
+}
+
+export const addPost = (postMessage: string): AddPostType => ({
     type: ADD_POST,
-    postMessage
+    payload: postMessage
 });
 
-export const deletePost = (id) => ({
+type DeletePostType = {
+  type: typeof DELETE_POST
+  payload: number
+}
+
+export const deletePost = (id: number): DeletePostType => ({
     type: DELETE_POST,
-    id
+    payload: id
 });
 
-export const updateNewPostText = (text) => ({
+type UpdateNewPostTextType = {
+  type: typeof UPDATE_NEW_POST_TEXT
+  payload: string
+}
+
+export const updateNewPostText = (text: string): UpdateNewPostTextType => ({
     type: UPDATE_NEW_POST_TEXT,
-    newText: text
+    payload: text
 });
 
-const setUserProfile = (profileData) => ({
+type SetUserProfileType = {
+  type: typeof SET_USER_PROFILE
+  payload: ProfileType
+}
+
+const setUserProfile = (profileData: ProfileType): SetUserProfileType => ({
   type: SET_USER_PROFILE,
-  profileData
+  payload: profileData
 })
 
-const toggleIsFetching = (isFetching) => ({
+type ToggleIsFetchingType = {
+  type: typeof TOGGLE_IS_FETCHING
+  payload: boolean
+}
+
+const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => ({
   type: TOGGLE_IS_FETCHING,
-  isFetching
+  payload: isFetching
 })
 
-const setProfileStatus = (profileStatus) => ({
+type SetProfileStatusType = {
+  type: typeof SET_PROFILE_STATUS
+  payload: string
+}
+
+const setProfileStatus = (profileStatus: string): SetProfileStatusType => ({
   type: SET_PROFILE_STATUS,
-  profileStatus
+  payload: profileStatus
 })
 
-const saveAvatarSucces = (photos) => ({
+type SaveAvatarSuccessType = {
+  type: typeof SAVE_AVATAR_SUCCESS
+  payload: PhotosType
+}
+
+const saveAvatarSucces = (photos: PhotosType): SaveAvatarSuccessType => ({
   type: SAVE_AVATAR_SUCCESS,
-  photos
+  payload: photos
 });
 
-export const getProfile = userId => async dispatch => {
+export const getProfile = (userId: number) => async (dispatch: any) => {
   dispatch(toggleIsFetching(true));
   const data = await profileAPI.getProfile(userId)
   dispatch(toggleIsFetching(false));
@@ -123,26 +184,26 @@ export const getProfile = userId => async dispatch => {
   return data;
 }
 
-export const getProfileStatus = userId => async dispatch => {
+export const getProfileStatus = (userId: number) => async (dispatch: any) => {
   const data = await profileAPI.getProfileStatus(userId);
   dispatch(setProfileStatus(data));
 }
 
-export const putProfileStatus = profileStatus => async dispatch => {
+export const putProfileStatus = (profileStatus: string) => async (dispatch: any) => {
   const data = await profileAPI.putProfileStatus(profileStatus)
   if (!data.resultCode) {
     dispatch(setProfileStatus(profileStatus));
   }
 }
 
-export const saveAvatar = file => async dispatch => {
+export const saveAvatar = (file: string) => async (dispatch: any) => {
   const data = await profileAPI.saveAvatar(file);
   if (data.resultCode === 0) {
     dispatch(saveAvatarSucces(data.data.photos));
   }
 } 
 
-export const saveProfile = profileInfo => async (dispatch, getState) => {
+export const saveProfile = (profileInfo: ProfileType) => async (dispatch: any, getState: any) => {
   const userId = getState().auth.data.id;
   const data = await profileAPI.saveProfile(profileInfo);
   if (data.resultCode === 0) {

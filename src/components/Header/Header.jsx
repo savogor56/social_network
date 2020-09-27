@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import Preloader from '../common/Preloader/Preloader';
 
 const Header = ({isFetching, isAuth, userData, authLogOut, avatar}) => {
+  console.log(userData)
   return(
     <header className={`${classes.header} wrap`}>
       <div className={classes.info_block}>
@@ -17,7 +18,7 @@ const Header = ({isFetching, isAuth, userData, authLogOut, avatar}) => {
           {
             isAuth ?
             <div className={classes.user_info}>
-              <span>{userData.login}</span>
+              <span>{userData !== null && userData.login}</span>
             <img src={avatar} alt=""/>
               <button onClick={authLogOut} >Log Out</button>
             </div> :

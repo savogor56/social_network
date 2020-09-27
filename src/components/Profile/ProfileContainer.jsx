@@ -23,6 +23,7 @@ class ProfileContainer extends React.Component {
       if (!userProfile || userProfile.userId !== +userId) {
         this.refreshProfile(userId);
       }
+      this.props.getProfileStatus(userId)
     }    
   }
 

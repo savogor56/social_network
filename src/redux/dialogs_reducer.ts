@@ -64,18 +64,31 @@ let messagesData = [
   }
 ]
 
-let initialState = {
-  dialogsData: dialogsData,
-  messagesData: messagesData
+export type MessagesDataType = {
+  id: number
+  text: string
 }
 
-export const dialogsReducer = (state = initialState, action) => {
+export type DialogsDataType = {
+  id: number
+  name: string
+  avatar: string
+}
+
+const initialState = {
+  dialogsData: dialogsData as Array<DialogsDataType>,
+  messagesData: messagesData as Array<MessagesDataType>
+}
+
+type ActionType = SendMessageType
+
+export const dialogsReducer = (state = initialState, action: ActionType): typeof initialState => {
 
   switch(action.type) {
     case SEND_MESSAGE:
       let newMessage = {
         id: state.messagesData[state.messagesData.length - 1].id + 1,
-        text: action.newMessage
+        text: action.payload
       };
       return {
         ...state,
@@ -86,9 +99,14 @@ export const dialogsReducer = (state = initialState, action) => {
   }  
 };
 
-export const sendMessage = (newMessage) => {
+type SendMessageType = {
+  type: typeof SEND_MESSAGE
+  payload: string
+}
+
+export const sendMessage = (newMessage: string) => {
   return {
     type: SEND_MESSAGE,
-    newMessage
+    payload: newMessage
   }
 };
