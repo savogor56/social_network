@@ -1,3 +1,5 @@
+import { DialogsDataType, MessagesDataType } from "../types/types";
+
 const SEND_MESSAGE = "SEND_MESSAGE";
 
 let users = {
@@ -63,17 +65,6 @@ let messagesData = [
     text: "By"
   }
 ]
-
-export type MessagesDataType = {
-  id: number
-  text: string
-}
-
-export type DialogsDataType = {
-  id: number
-  name: string
-  avatar: string
-}
 
 const initialState = {
   dialogsData: dialogsData as Array<DialogsDataType>,

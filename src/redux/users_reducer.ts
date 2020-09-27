@@ -1,6 +1,6 @@
 import { usersAPI } from "../api/api";
+import { UserType } from "../types/types";
 import { updateObjectInArray } from "../utils/object_helpers";
-import { PhotosType } from "./profile_reducer";
 
 const TOGGLE_FOLLOWED = 'social_network/users/TOGGLE_FOLLOWED';
 const SET_USERS = 'social_network/users/SET_USERS';
@@ -8,14 +8,6 @@ const SET_CURRENT_PAGE = 'social_network/users/SET_CURRENT_PAGE';
 const SET_CURRENT_PORTION = 'social_network/users/SET_CURRENT_PORTION';
 const TOGGLE_IS_FETCHING = 'social_network/users/TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING = 'social_network/users/TOGGLE_IS_FOLLOWING';
-
-export type UserType = {
-  id: number
-  name: string
-  status: string
-  photos: PhotosType
-  followed: boolean
-}
 
 const initialState = {
     users: [] as Array<UserType>,

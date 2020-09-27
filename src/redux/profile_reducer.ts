@@ -1,4 +1,5 @@
 import { profileAPI } from "../api/api";
+import { PhotosType, ProfileType } from "../types/types";
 
 const ADD_POST = "social_network/profile/ADD_POST";
 const UPDATE_NEW_POST_TEXT = "social_network/profile/UPDATE_NEW_POST_TEXT";
@@ -7,31 +8,6 @@ const TOGGLE_IS_FETCHING = "social_network/profile/TOGGLE_IS_FETCHING";
 const SET_PROFILE_STATUS = "social_network/profile/SET_PROFILE_STATUS";
 const DELETE_POST = "social_network/profile/DELETE_POST";
 const SAVE_AVATAR_SUCCESS = "social_network/profile/SAVE_AVATAR_SUCCESS";
-
-export type ContactsType = {
-  github: string
-  vk: string
-  facebook: string
-  instagram: string
-  twitter: string
-  website: string
-  youtube: string
-  mainLink: string
-}
-
-export type PhotosType = {
-  small: string | null
-  large: string | null
-} 
-
-export type ProfileType = {
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  contacts: ContactsType
-  photos: PhotosType
-}
 
 const initialState = {
   postsData: [

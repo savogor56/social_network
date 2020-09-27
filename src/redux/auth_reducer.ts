@@ -1,18 +1,12 @@
 import { authAPI, securityAPI } from "../api/api";
 import { getProfile } from "./profile_reducer";
 import defaultAvatar from '../assets/img/default_avatar.jpg';
+import { UserDataType } from "../types/types";
 
 const TOGGLE_IS_FETCHING = 'social_network/auth/TOGGLE_IS_FETCHING';
 const SET_USER_DATA = 'social_network/auth/SET_USER_DATA';
 const SET_CUR_USER_AVATAR = 'social_network/auth/SET_CUR_USER_AVATAR';
 const SET_CAPTCHA_URL = 'social_network/auth/SET_CAPTCHA_URL';
-
-
-export type UserDataType = {
-  id: number
-  email: string
-  login: string
-}
 
 const initialState = {
   resultCode: null as number | null,

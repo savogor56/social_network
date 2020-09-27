@@ -2,7 +2,7 @@ import { getCurrentUserData } from "./auth_reducer";
 
 const SET_INITIALISED = 'social_network/app/SET_INITIALISED';
 
-let initialState = {
+const initialState = {
   initialised: null as boolean | null
 };
 
