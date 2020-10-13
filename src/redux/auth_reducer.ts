@@ -1,12 +1,14 @@
-import { authAPI, securityAPI } from "../api/api";
-import { getProfile } from "./profile_reducer";
-import defaultAvatar from '../assets/img/default_avatar.jpg';
-import { UserDataType } from "../types/types";
+import { authAPI, securityAPI } from "../api/api"
+import { getProfile } from "./profile_reducer"
+import defaultAvatar from "../assets/img/default_avatar.jpg"
+import { UserDataType } from "../types/types"
+import { ThunkAction } from "redux-thunk"
+import { ReduxStateType } from "./redux-store"
 
-const TOGGLE_IS_FETCHING = 'social_network/auth/TOGGLE_IS_FETCHING';
-const SET_USER_DATA = 'social_network/auth/SET_USER_DATA';
-const SET_CUR_USER_AVATAR = 'social_network/auth/SET_CUR_USER_AVATAR';
-const SET_CAPTCHA_URL = 'social_network/auth/SET_CAPTCHA_URL';
+const TOGGLE_IS_FETCHING = 'social_network/auth/TOGGLE_IS_FETCHING'
+const SET_USER_DATA = 'social_network/auth/SET_USER_DATA'
+const SET_CUR_USER_AVATAR = 'social_network/auth/SET_CUR_USER_AVATAR'
+const SET_CAPTCHA_URL = 'social_network/auth/SET_CAPTCHA_URL'
 
 const initialState = {
   resultCode: null as number | null,
@@ -97,7 +99,9 @@ const setCaptchaUrl = (url: string): SetCaptchaUrlType => ({
   payload: url
 })
 
-export const getCurrentUserData = () => async (dispatch: any) => {
+type ThunkType = ThunkAction<Promise<any>, ReduxStateType, unknown, ActionType>
+
+export const getCurrentUserData = (): ThunkType => async dispatch => {
   dispatch(toggleIsFetching(true));    
   const response = await authAPI.getCurrentUserData();      
   dispatch(toggleIsFetching(false));
@@ -112,19 +116,19 @@ export const getCurrentUserData = () => async (dispatch: any) => {
   } 
 }
 
-export const authLogin = (email: string, password: string, rememberMe: boolean, captcha: string) => async (dispatch: any, getState: any) => {
-  dispatch(toggleIsFetching(true));
+export const authLogin = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch: any, getState: any) => {
+  dispatch(toggleIsFetching(true))
   const response = await authAPI.authLogin(email, password, rememberMe, captcha);
   const {resultCode, messages } = response.data;
-    dispatch(toggleIsFetching(false));
+    dispatch(toggleIsFetching(false))
   if (resultCode === 0) {
-      dispatch(getCurrentUserData());
+      dispatch(getCurrentUserData())
       return {
         isSuccess: true
       }
     } else {
       if(resultCode === 10) {
-        dispatch(getCaptchaUrl());
+        dispatch(getCaptchaUrl())
         if(!getState().auth.captchaUrl) {
           return {
             isSuccess: false,
@@ -139,17 +143,17 @@ export const authLogin = (email: string, password: string, rememberMe: boolean, 
     }      
 }
 
-export const authLogOut = () => async (dispatch: any) => {
-  dispatch(toggleIsFetching(true));
-  const response = await authAPI.LogOut();
-  dispatch(toggleIsFetching(false));
+export const authLogOut = (): ThunkType => async (dispatch) => {
+  dispatch(toggleIsFetching(true))
+  const response = await authAPI.LogOut()
+  dispatch(toggleIsFetching(false))
   if (response.data.resultCode === 0) {
-    dispatch(setUserData(null, null, null, false));
+    dispatch(setUserData(null, null, null, false))
   }      
 }
 
-export const getCaptchaUrl = () => async (dispatch: any) => {
-  const response = await securityAPI.getCaptchaUrl();
-  const captchaUrl = response.url;
-  dispatch(setCaptchaUrl(captchaUrl));
+export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
+  const response = await securityAPI.getCaptchaUrl()
+  const captchaUrl = response.url
+  dispatch(setCaptchaUrl(captchaUrl))
 }

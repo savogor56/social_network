@@ -24,8 +24,8 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
   toggleIsFollowing: (isFollowing: boolean, userId: number) => ToggleIsFollowingType
   requestUsers: (pageNumber: number, pageSize: number, portionNumber?: number) => void
-  follow: (followed: boolean, userId: number) => (dispatch: any) => void
-  unfollow: (followed: boolean, userId: number) => (dispatch: any) => void
+  follow: (followed: boolean, userId: number) => any
+  unfollow: (followed: boolean, userId: number) => any
   setCurrentPortion: (portionNumber: number) => void
 }
 

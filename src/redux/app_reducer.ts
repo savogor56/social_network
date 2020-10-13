@@ -1,4 +1,5 @@
-import { getCurrentUserData } from "./auth_reducer";
+import { Dispatch } from "redux"
+import { getCurrentUserData } from "./auth_reducer"
 
 const SET_INITIALISED = 'social_network/app/SET_INITIALISED';
 
@@ -30,8 +31,8 @@ export const toggleInitialised = (initialised: boolean): ToggleInitialisedType =
   payload: initialised
 })
 
-export const initialisedApp = () => async (dispatch: any) => {  
-  await dispatch(getCurrentUserData());
-  dispatch(toggleInitialised(true));
+export const initialisedApp = () => async (dispatch: Dispatch<any>) => {  
+  await dispatch(getCurrentUserData())
+  dispatch(toggleInitialised(true))
 }
 
