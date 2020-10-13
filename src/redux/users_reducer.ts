@@ -17,14 +17,13 @@ const initialState = {
     currentPortion: 1,
     currentPage: 1,
     isFetching: false,
-    followingInProgress: [] as Array<number>
+    followingInProgress: [] as Array<number | undefined>
   }
 
-type ActionType = ToggleFollowType | SetUsersType | SetCurrentPageType | SetCurrentPortionType |
-ToggleIsFetchingType | ToggleIsFollowingType
+// type ActionType = ToggleFollowType | SetUsersType | SetCurrentPageType | SetCurrentPortionType |
+// ToggleIsFetchingType | ToggleIsFollowingType
 
-
-export const usersReducer = (state = initialState, action: ActionType) => {
+export const usersReducer = (state = initialState, action: any): typeof initialState => {
   switch(action.type) {
     case TOGGLE_FOLLOWED:
       return {
@@ -57,9 +56,9 @@ export const usersReducer = (state = initialState, action: ActionType) => {
     case TOGGLE_IS_FOLLOWING:
       return{
         ...state,
-        followingInProgress: action.payload.isFollowing ? 
-          [...state.followingInProgress, action.payload.userId ] :
-          [state.followingInProgress.filter(id => id !== action.payload.userId )]
+        followingInProgress: action.payload.isFollowing ?
+        [...state.followingInProgress, action.payload.userId ] :
+        [state.followingInProgress?.filter(id => id !== action.payload.userId )]
       }     
     default: 
       return state;     
@@ -138,7 +137,7 @@ const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType=> {
   }
 }
 
-type ToggleIsFollowingType = {
+export type ToggleIsFollowingType = {
   type: typeof TOGGLE_IS_FOLLOWING
   payload: {
     isFollowing: boolean
@@ -156,7 +155,7 @@ export const toggleIsFollowing = (isFollowing: boolean, userId: number): ToggleI
   }
 }
 
-export const requestUsers = (currentPage: number, pageSize: number, currentPortion: number) => async (dispatch: any) => {
+export const requestUsers = (currentPage = 1, pageSize: number, currentPortion = 1) => async (dispatch: any) => {
   dispatch(setCurrentPortion(currentPortion));
   dispatch(setCurrentPage(currentPage));
   dispatch(toggleIsFetching(true));

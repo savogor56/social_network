@@ -8,7 +8,7 @@ const initialState = {
 
 type ActionType = ToggleInitialisedType
 
-export const appReducer = (state = initialState, action: ActionType) => {
+export const appReducer = (state = initialState, action: ActionType): typeof initialState => {
   switch (action.type) {
     case SET_INITIALISED:
       return {

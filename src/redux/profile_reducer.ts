@@ -33,7 +33,7 @@ const initialState = {
 type ActionType = AddPostType | DeletePostType | UpdateNewPostTextType | SetUserProfileType | 
 ToggleIsFetchingType | SetProfileStatusType | SaveAvatarSuccessType
 
-export const profileReducer = (state = initialState, action: ActionType) => {
+export const profileReducer = (state = initialState, action: ActionType): typeof initialState=> {
   switch(action.type) {
     case ADD_POST:
       const newPost = {

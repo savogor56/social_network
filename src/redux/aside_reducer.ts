@@ -1,4 +1,4 @@
-let users = {
+const users = {
   user1: {
     id: 1,
     name: "Vasya",
@@ -29,7 +29,7 @@ let users = {
   }
 }
 
-let initialState = {
+const initialState = {
   friends: [
     {
       id: users.user2.id,
@@ -81,6 +81,6 @@ let initialState = {
   ]
 }
 
-export const asideReducer = (state = initialState, action) => {
+export const asideReducer = (state = initialState, action: any) => {
   return state;
 }
